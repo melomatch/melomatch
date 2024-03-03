@@ -2,7 +2,11 @@
 name = "melomatch"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = [
+    "Vitaly Zorin <addefan@mail.ru>",
+    "Amir Dianov <amirdianov@gmail.com>",
+    "DashaVed <dasha.ved93@gmail.com>"
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
