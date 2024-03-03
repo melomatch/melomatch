@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: melomatch
+      POSTGRES_USER: melomatch
+      POSTGRES_PASSWORD: melomatch
+      POSTGRES_NAME: melomatch
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
