@@ -1,11 +1,19 @@
 ## Локальный запуск
 
-1. Склонировать репозиторий
+1. Склонировать репозиторий  
 `git clone https://github.com/melomatch/melomatch.git`
-2. Создать базу данных для приложения
-3. Установить библиотеки  
+2. Поднять базу данных для приложения  
+`docker-compose up -d`
+3. Войти в виртуальное окружение  
+`poetry shell`
+4. Установить библиотеки  
 `poetry install`
-4. Запустить скрипт  
-   `python manage.py migrate`
-5. Запустить веб сервер  
-   `python manage.py runserver`
+5. Установить git-хуки  
+`pre-commit install`
+6. Выполнить миграции в БД  
+`python manage.py migrate`
+7. Запустить веб-сервер  
+`python manage.py runserver`
+
+Ручной запуск линтера: `ruff check --fix`  
+Ручной запуск pre-commit хуков: `pre-commit run`
