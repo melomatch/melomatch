@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Melomatch - сервис, где вы можете сравнить музыкальные вкусы{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'web/css/bulma-0.9.4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/css/base.css' %}?">
+    {% block styles %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar is-light has-shadow" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item is-flex" href="#">
+          <figure class="image is-48x48">
+            <img src="{% static 'web/images/logo_icon.png' %}" width="48" height="48">
+          </figure>
+          <p class="title is-3 ml-3 has-text-grey-darker">melomatch</p>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            {% if user.is_authenticated %}
+            <div class="user-profile-link">
+              <a class="has-text-grey-darker is-size-5" href="#">
+                <strong>{{ user.first_name }} {{ user.last_name }}</strong>
+              </a>
+            </div>
+            {% else %}
+            <div class="buttons">
+              <a class="button is-primary" href="https://oauth.yandex.ru/authorize?response_type=token&client_id=23cabbbdc6cd418abb4b39c32c41195d">
+                <strong>Войти через Яндекс</strong>
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <script src="{% static 'web/js/jquery-3.7.1.min.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+
+      // Check for click events on the navbar burger icon
+      $(".navbar-burger").click(function() {
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          $(".navbar-burger").toggleClass("is-active");
+          $(".navbar-menu").toggleClass("is-active");
+
+      });
+    });
+    </script>
+  </body>
+</html>
