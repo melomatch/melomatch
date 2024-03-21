@@ -3,12 +3,12 @@ from django.db import models
 
 
 class Track(models.Model):
-    yandex_id = models.IntegerField(verbose_name="ID в Yandex")
+    yandex_id = models.IntegerField(unique=True, verbose_name="ID в Yandex")
     title = models.CharField(verbose_name="Название")
     release_date = models.DateTimeField(max_length=255, verbose_name="Дата выхода")
     cover = models.URLField(max_length=511, verbose_name="URL обложки")
-    genre = models.ManyToManyField("Genre", on_delete=models.CASCADE, verbose_name="Жанр")
-    artist = models.ManyToManyField("Artist", on_delete=models.CASCADE, verbose_name="Артист")
+    genre = models.ManyToManyField("Genre", verbose_name="Жанр")
+    artist = models.ManyToManyField("Artist", verbose_name="Артист")
 
     class Meta:
         verbose_name = "песня"
@@ -19,7 +19,7 @@ class Track(models.Model):
 
 
 class Genre(models.Model):
-    title = models.CharField(max_length=63, verbose_name="Жанр")
+    title = models.CharField(unique=True, max_length=63, verbose_name="Жанр")
 
     class Meta:
         verbose_name = "жанр"
@@ -30,7 +30,7 @@ class Genre(models.Model):
 
 
 class Artist(models.Model):
-    yandex_id = models.IntegerField(verbose_name="ID в Yandex")
+    yandex_id = models.IntegerField(unique=True, verbose_name="ID в Yandex")
     name = models.CharField(max_length=255, verbose_name="Имя")
     avatar = models.CharField(max_length=511, verbose_name="URL фотографии профиля")
 
