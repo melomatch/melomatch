@@ -14,7 +14,7 @@ class User(AbstractUser):
     birthday = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
     sex = models.CharField(max_length=1, verbose_name="Пол")
     avatar = models.URLField(max_length=511, verbose_name="URL фотографии пользователя")
-    track = models.ManyToManyField(Track, verbose_name="Песня")
+    tracks = models.ManyToManyField(Track, verbose_name="Треки")
 
     def __str__(self):
         return self.username
