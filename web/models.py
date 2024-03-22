@@ -4,18 +4,19 @@ from django.db import models
 
 class Track(models.Model):
     yandex_id = models.IntegerField(unique=True, verbose_name="ID в Yandex")
-    title = models.CharField(verbose_name="Название")
-    release_date = models.DateTimeField(max_length=255, verbose_name="Дата выхода")
+    title = models.CharField(max_length=255, verbose_name="Название")
+    release_date = models.DateTimeField(verbose_name="Дата выхода")
     cover = models.URLField(max_length=511, verbose_name="URL обложки")
-    genre = models.ManyToManyField("Genre", verbose_name="Жанр")
-    artist = models.ManyToManyField("Artist", verbose_name="Артист")
+    genres = models.ManyToManyField("Genre", verbose_name="Жанры")
+    artists = models.ManyToManyField("Artist", verbose_name="Артисты")
 
     class Meta:
-        verbose_name = "песня"
-        verbose_name_plural = "песни"
+        verbose_name = "трек"
+        verbose_name_plural = "треки"
 
     def __str__(self):
-        return self.title
+        artists = (artist.name for artist in self.artists.all())
+        return f"{self.title} - {", ".join(artists)}"
 
 
 class Genre(models.Model):
@@ -32,7 +33,7 @@ class Genre(models.Model):
 class Artist(models.Model):
     yandex_id = models.IntegerField(unique=True, verbose_name="ID в Yandex")
     name = models.CharField(max_length=255, verbose_name="Имя")
-    avatar = models.CharField(max_length=511, verbose_name="URL фотографии профиля")
+    avatar = models.URLField(max_length=511, verbose_name="URL фотографии профиля")
 
     class Meta:
         verbose_name = "артист"
