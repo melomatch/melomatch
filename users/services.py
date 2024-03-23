@@ -30,7 +30,7 @@ def prepare_yandex_user_data(data):
         "last_name": data["last_name"],
     }
 
-    birthday = data["birthday"]
+    birthday = data["birthday"] or None
     if birthday:
         year, month, day = birthday.split("-")
         year = 1 if year == "0000" else year  # Неизвестные части даты заполняются нулями
