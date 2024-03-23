@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login
+from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import RedirectView
@@ -32,3 +33,7 @@ class YandexOAuthCallbackView(RedirectView):
         login(request, user)
 
         return super().get(request, *args, **kwargs)
+
+
+class LogoutView(DjangoLogoutView):
+    next_page = reverse_lazy("index")
