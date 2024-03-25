@@ -1,3 +1,7 @@
+html {
+    overflow-y: auto;
+}
+
 .navbar-item img {
     max-height: 3rem
 }
