@@ -1,0 +1,15 @@
+{% extends "web/pages/base.html" %}
+{% load static %}
+
+{% block styles %}
+  <style>
+    html[data-theme="light"] body {
+        background-image: url("{% static 'web/images/landing_banner_light.png' %}");
+    }
+
+    html[data-theme="dark"] body {
+        background-image: url("{% static 'web/images/landing_banner_dark.png' %}");
+    }
+  </style>
+  <link rel="stylesheet" href="{% static 'web/css/landing.css' %}">
+{% endblock %}

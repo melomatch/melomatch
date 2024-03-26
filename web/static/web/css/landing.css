@@ -1,0 +1,13 @@
+html, body {
+    height: 100%;
+}
+
+html[data-theme="dark"] .attribution {
+    display: none !important;
+}
+
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
