@@ -1,3 +1,7 @@
+:root {
+    --bulma-navbar-height: 4rem !important;
+}
+
 html {
     overflow-y: auto;
 }
