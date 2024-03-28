@@ -11,5 +11,28 @@
         background-image: url("{% static 'web/images/landing_banner_dark.png' %}");
     }
   </style>
-  <link rel="stylesheet" href="{% static 'web/css/landing.css' %}">
+  <link rel="stylesheet" href="{% static 'web/css/landing.css' %}?">
+{% endblock %}
+
+{% block body %}
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container box">
+        <p class="title mb-4">Найди своего музыкального двойника</p>
+        <p class="subtitle">Ищи своих друзей и сравнивай свой музыкальный вкус с ними на основе твоих лайкнутых треков в Яндекс Музыке</p>
+        <button class="button is-responsive is-rounded is-inverted">
+          <span class="icon">
+            <i class="fas fa-arrow-down"></i>
+          </span>
+          <span>Подробнее</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero-foot">
+        <a class="attribution is-pulled-right p-3"
+           href="https://www.freepik.com/free-photo/top-view-musical-notes-notebook-earphones_5456236.htm#fromView=search&page=1&position=0&uuid=26dc1703-2cd1-47ae-ba63-b83c7a813427">
+          Image by freepik
+        </a>
+    </div>
+  </section>
 {% endblock %}
