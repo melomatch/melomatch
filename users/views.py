@@ -44,15 +44,13 @@ class LogoutView(DjangoLogoutView):
 class ProfileView(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = "users/profile.html"
+    success_url = reverse_lazy("profile")
 
     def get_object(self):
         return User.objects.get(username=self.request.user)
 
-    def get_success_url(self):
-        return reverse_lazy("profile")
-
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         return {
-            **super(__class__, self).get_context_data(),
+            **super(__class__, self).get_context_data(**kwargs),
             "avatar_url": f"{self.get_object().avatar}/islands-200",
         }
