@@ -48,9 +48,3 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return User.objects.get(username=self.request.user)
-
-    def get_context_data(self, **kwargs):
-        return {
-            **super(__class__, self).get_context_data(**kwargs),
-            "avatar_url": f"{self.get_object().avatar}/islands-200",
-        }
