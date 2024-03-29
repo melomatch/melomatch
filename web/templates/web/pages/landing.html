@@ -35,6 +35,23 @@
         </a>
     </div>
   </section>
+  <div class="grid is-gap-8 mt-6 pb-5 container">
+    {% for feature in features %}
+      <div class="card cell {% if forloop.last %}mb-5{% endif %}">
+      <header class="card-header p-4 is-flex is-justify-content-center">
+        <span class="icon">
+          <i class="fas {{ feature.icon }}"></i>
+        </span>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p class="is-size-5 has-text-weight-bold">{{ feature.title }}</p>
+          <p>{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 {% endblock %}
 
 {% block scripts %}
