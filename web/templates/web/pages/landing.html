@@ -54,6 +54,29 @@
     {% endfor %}
   </div>
   <div class="divider"></div>
+  <div class="container pb-5">
+    <div class="has-text-centered title mb-6">Часто задаваемые вопросы</div>
+    {% for question in questions %}
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">{{ question.text }}</p>
+        <button class="card-header-icon" aria-label="Закрыть/раскрыть ответ на вопрос">
+          <a href="#question-{{ forloop.counter }}" data-action="collapse">
+            <span class="icon">
+              <i class="fas fa-angle-down rotate" aria-hidden="true"></i>
+            </span>
+          </a>
+        </button>
+      </header>
+      <div id="question-{{ forloop.counter }}" class="is-collapsible is-active" data-allow-multiple="true">
+        <div class="card-content">
+          <div class="content">{{ question.answer }}</div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="divider"></div>
   <div class="container pb-6">
     <div class="has-text-centered title mb-6">Наша команда</div>
     <div class="grid is-gap-6">

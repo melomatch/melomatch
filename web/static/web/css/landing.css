@@ -12,3 +12,16 @@ body {
 .hero .container {
     max-width: 25% !important;
 }
+
+.rotate {
+    transition: all 0.5s ease-out;
+}
+
+.rotate.down {
+    transform: rotate(-180deg);
+}
+
+.is-collapsible {
+    transition: height 0.5s ease-out;
+    overflow: hidden;
+}
