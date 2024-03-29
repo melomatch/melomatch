@@ -1,3 +1,4 @@
+from django.templatetags.static import static
 from django.views.generic import TemplateView
 
 
@@ -27,4 +28,27 @@ class LandingView(TemplateView):
                 "прослушиваемых тобой артистов и жанров",
             },
         ]
-        return super().get_context_data(**kwargs, features=features)
+        authors = [
+            {
+                "name": "addefan",
+                "avatar": static("web/images/addefan.png"),
+                "role": "Основатель и бэкенд, фронтенд разработчик",
+                "github": "https://github.com/addefan",
+                "telegram": "https://t.me/addefan",
+            },
+            {
+                "name": "amirdianov",
+                "avatar": static("web/images/amirdianov.png"),
+                "role": "Бэкенд, фронтенд разработчик",
+                "github": "https://github.com/amirdianov",
+                "telegram": "https://t.me/diyanovamir",
+            },
+            {
+                "name": "DashaVed",
+                "avatar": static("web/images/DashaVed.png"),
+                "role": "Бэкенд, фронтенд разработчик",
+                "github": "https://github.com/DashaVed",
+                "telegram": "https://t.me/d_vedernikova",
+            },
+        ]
+        return super().get_context_data(**kwargs, features=features, authors=authors)
