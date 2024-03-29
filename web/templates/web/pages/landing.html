@@ -19,8 +19,8 @@
     <div class="hero-body">
       <div class="container box">
         <p class="title mb-4">Найди своего музыкального двойника</p>
-        <p class="subtitle">Ищи своих друзей и сравнивай свой музыкальный вкус с ними на основе твоих лайкнутых треков в Яндекс Музыке</p>
-        <button class="button is-responsive is-rounded is-inverted">
+        <p class="subtitle">Ищи своих друзей и сравнивай с ними свой музыкальный вкус на основе твоих лайкнутых треков в Яндекс Музыке</p>
+        <button id="scroll" class="button is-responsive is-rounded is-inverted">
           <span class="icon">
             <i class="fas fa-arrow-down"></i>
           </span>
@@ -35,4 +35,8 @@
         </a>
     </div>
   </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'web/js/landing_scroll.js' %}?"></script>
 {% endblock %}
