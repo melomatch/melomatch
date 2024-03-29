@@ -1,0 +1,52 @@
+{% extends 'web/pages/base.html' %}
+{% block title %} Инструкция {% endblock %}
+
+{% block body %}
+    <section class="hero is-fullheight-with-navbar">
+        <div class="hero-body">
+            <div class="columns is-vcentered">
+                <div class="column">
+                    <article class="message is-primary">
+                        <div class="message-body instruction-hover">
+                            <b>Шаг первый:</b>
+                            <p>Установите расширение <a href="https://www.tampermonkey.net/index.php?/{{ browser }}"><b>Tampermonkey</b></a>,
+                                которое позволит вам
+                                использовать
+                                пользовательские скрипты в вашем браузере. Это расширение обеспечит необходимую
+                                инфраструктуру
+                                для корректной работы нашего сервиса.</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message is-primary">
+                        <div class="message-body instruction-hover">
+                            <b>Шаг второй:</b>
+                            <p>После установки Tampermonkey перейдите на наш веб-сайт и загрузите <a
+                                    href="https://github.com/melomatch/token-handler/raw/develop/token-handler.user.js"><b>расширение</b></a>
+                                для
+                                обработки токена. Этот шаг необходим для авторизации вашего аккаунта и обеспечения
+                                безопасного
+                                взаимодействия с нашим сервисом.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message is-primary">
+                        <div class="message-body instruction-hover">
+                            <b>Шаг третий:</b>
+                            <p>Пройдите процесс авторизации через ваш аккаунт в VK или Яндекс, используя
+                                учетные
+                                данные, предоставленные на соответствующих платформах. Это позволит нам получить доступ
+                                к
+                                вашим
+                                музыкальным предпочтениям и обеспечить функциональность сравнения и переноса
+                                плейлистов.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
