@@ -1,0 +1,112 @@
+{% extends "web/pages/base.html" %}
+{% load static %}
+
+{% block styles %}
+  <style>
+      html[data-theme="light"] body {
+          background-image: url("{% static 'web/images/landing_banner_light.png' %}");
+      }
+
+      html[data-theme="dark"] body {
+          background-image: url("{% static 'web/images/landing_banner_dark.png' %}");
+      }
+  </style>
+  <link rel="stylesheet" href="{% static 'web/css/landing.css' %}?">
+{% endblock %}
+
+{% block body %}
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container box">
+        <p class="title mb-4">Найди своего музыкального двойника</p>
+        <p class="subtitle">Ищи своих друзей и сравнивай с ними свой музыкальный вкус на основе твоих лайкнутых треков в
+          Яндекс Музыке</p>
+        <button id="scroll" class="button is-responsive is-rounded is-inverted">
+          <span class="icon">
+            <i class="fas fa-arrow-down"></i>
+          </span>
+          <span>Подробнее</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero-foot">
+      <a class="attribution is-pulled-right p-3"
+         href="https://www.freepik.com/free-photo/top-view-musical-notes-notebook-earphones_5456236.htm#fromView=search&page=1&position=0&uuid=26dc1703-2cd1-47ae-ba63-b83c7a813427">
+        Image by freepik
+      </a>
+    </div>
+  </section>
+  <div class="grid is-gap-8 mt-6 container">
+    {% for feature in features %}
+      <div class="card cell {% if forloop.last %}mb-5{% endif %}">
+        <header class="card-header p-4 is-flex is-justify-content-center">
+        <span class="icon">
+          <i class="fas {{ feature.icon }}"></i>
+        </span>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p class="is-size-5 has-text-weight-bold">{{ feature.title }}</p>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="divider"></div>
+  <div class="container pb-5">
+    <div class="has-text-centered title mb-6">Часто задаваемые вопросы</div>
+    {% for question in questions %}
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">{{ question.text }}</p>
+        <button class="card-header-icon" aria-label="Закрыть/раскрыть ответ на вопрос">
+          <a href="#question-{{ forloop.counter }}" data-action="collapse">
+            <span class="icon">
+              <i class="fas fa-angle-down rotate" aria-hidden="true"></i>
+            </span>
+          </a>
+        </button>
+      </header>
+      <div id="question-{{ forloop.counter }}" class="is-collapsible is-active" data-allow-multiple="true">
+        <div class="card-content">
+          <div class="content">{{ question.answer }}</div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="divider"></div>
+  <div class="container pb-6">
+    <div class="has-text-centered title mb-6">Наша команда</div>
+    <div class="grid is-gap-6">
+      {% for author in authors %}
+        <div class="cell is-flex is-flex-direction-row">
+          <figure class="image is-96x96">
+            <img class="is-rounded" src="{{ author.avatar }}" alt="Фотография {{ author.name }}"/>
+          </figure>
+          <div class="pl-4 is-align-content-center">
+            <p class="is-size-5 has-text-weight-bold">{{ author.name }}</p>
+            <p>{{ author.role }}</p>
+            <div class="mt-2">
+            <span class="icon">
+              <a class="button p-0" href="{{ author.github }}" target="_blank">
+                <i class="fas fa-lg fa-brands fa-github"></i>
+              </a>
+            </span>
+            <span class="icon">
+              <a class="button p-0" href="{{ author.telegram }}" target="_blank">
+                <i class="fas fa-lg fa-brands fa-telegram"></i>
+              </a>
+            </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'web/js/landing_scroll.js' %}?"></script>
+{% endblock %}
