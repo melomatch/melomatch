@@ -3,7 +3,6 @@ $(document).ready(function() {
 
   bulmaCollapsibleInstances.forEach(function (collapsibleElement) {
     collapsibleElement.on("after:collapse", (item) => {
-      console.log(item.element.parentNode.querySelector(".rotate"))
       item.element.parentNode.querySelector(".rotate").classList.add("down");
     })
 
