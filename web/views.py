@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView
-from ua_parser.user_agent_parser import ParseUserAgent
 
-from web.enums import Browser
+from users.services import get_browser_store_link
 
 
 class IndexView(TemplateView):
@@ -11,11 +10,7 @@ class IndexView(TemplateView):
 class InstructionView(TemplateView):
     template_name = "web/pages/instruction.html"
 
-    def get(self, request):
-        browser_family = ParseUserAgent(request.META["HTTP_USER_AGENT"])["family"]
-        context = self.get_context_data()
-        try:
-            context["browser_family"] = getattr(Browser, browser_family).value
-        except AttributeError:
-            context["browser_family"] = Browser.Unknown.value
-        return self.render_to_response(context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["browser_link"] = get_browser_store_link(self.request)
+        return context

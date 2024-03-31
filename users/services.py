@@ -2,9 +2,11 @@ from datetime import datetime
 from http import HTTPStatus
 
 import requests
+from ua_parser.user_agent_parser import ParseUserAgent
 
 from users.enums import Sex
 from users.models import User
+from web.mappings import browser_store_links
 
 
 def get_user_info_by_yandex_token(token):
@@ -51,3 +53,7 @@ def get_user_by_yandex_data(data):
 
     user.save()
     return user
+
+
+def get_browser_store_link(request):
+    return browser_store_links[ParseUserAgent(request.META["HTTP_USER_AGENT"])["family"]]
