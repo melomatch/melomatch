@@ -1,7 +1,6 @@
 .navbar-item img {
     max-height: 3rem
 }
-
-.instruction-hover:hover {
-    background-color: hsla(171, 100%, 41%, 0.2); /* Изменяем цвет фона при наведении */
+:root {
+    --bulma-navbar-height: 4rem !important;
 }
