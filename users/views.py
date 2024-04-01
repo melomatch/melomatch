@@ -25,12 +25,12 @@ class YandexOAuthCallbackView(RedirectView):
 
         token = request.GET.get("access_token")
         if not token:
-            return redirect("index")
+            return redirect("landing")
 
         result, success = get_user_info_by_yandex_token(token)
         if not success:
             messages.error(request, result)
-            return redirect("index")
+            return redirect("landing")
 
         user = get_user_by_yandex_data(prepare_yandex_user_data(result))
         login(request, user)
