@@ -2,7 +2,7 @@
 
 <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item is-flex" href="#">
+        <a class="navbar-item is-flex" href="{% url 'landing' %}">
             <figure class="image is-48x48">
                 <img src="{% static 'web/images/logo_icon.png' %}" width="48" height="48">
             </figure>
@@ -33,7 +33,7 @@
 
             <div class="navbar-item">
                 <span class="icon">
-                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    <i id="theme-icon" class="fa-solid fa-moon is-clickable"></i>
                 </span>
             </div>
 
