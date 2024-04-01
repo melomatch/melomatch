@@ -1,4 +1,4 @@
-browser_store_links = {
+browsers_tampermonkey_links = {
     "Chrome": "https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo",
     "Edge": "https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd",
     "Firefox": "https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/",

@@ -6,7 +6,7 @@ from ua_parser.user_agent_parser import ParseUserAgent
 
 from users.enums import Sex
 from users.models import User
-from web.mappings import browser_store_links
+from web.mappings import browsers_tampermonkey_links
 
 
 def get_user_info_by_yandex_token(token):
@@ -55,5 +55,6 @@ def get_user_by_yandex_data(data):
     return user
 
 
-def get_browser_store_link(request):
-    return browser_store_links[ParseUserAgent(request.META["HTTP_USER_AGENT"])["family"]]
+def get_tampermonkey_link_by_user_agent(user_agent):
+    browser_family = ParseUserAgent(user_agent)["family"]
+    return browsers_tampermonkey_links.get(browser_family, browsers_tampermonkey_links["Other"])
