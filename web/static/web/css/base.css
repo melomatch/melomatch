@@ -9,3 +9,6 @@ html {
 .navbar-item img {
     max-height: 3rem
 }
+:root {
+    --bulma-navbar-height: 4rem !important;
+}
