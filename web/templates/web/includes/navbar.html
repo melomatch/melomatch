@@ -4,7 +4,7 @@
     <div class="navbar-brand">
         <a class="navbar-item is-flex" href="{% url 'landing' %}">
             <figure class="image is-48x48">
-                <img src="{% static 'web/images/logo_icon.png' %}" width="48" height="48">
+                <img src="{% static 'web/images/logo_icon.png' %}" width="48" height="48" alt="Логотип melomatch">
             </figure>
             <p class="title is-3 ml-3">melomatch</p>
         </a>
@@ -27,8 +27,8 @@
                 </a>
             {% else %}
                 <div class="navbar-item">
-                    <a class="button is-link"
-                       href="https://oauth.yandex.ru/authorize?response_type=token&client_id=23cabbbdc6cd418abb4b39c32c41195d">
+                    <a id="yandex-oauth" class="button is-link"
+                       href="{% url 'instruction' %}">
                         <span class="icon is-small">
                           <i class="fab fa-yandex"></i>
                         </span>
