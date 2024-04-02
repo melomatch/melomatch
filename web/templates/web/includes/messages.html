@@ -1,0 +1,15 @@
+{% for message in messages %}
+<div class="notification container is-max-desktop is-light my-3
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+         is-success
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        is-danger
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+        is-warning
+    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+        is-info
+  {% endif %}">
+    <button class="delete"></button>
+  {{ message }}
+</div>
+{% endfor %}
