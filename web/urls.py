@@ -1,6 +1,6 @@
 from django.urls import path
 
-from web.views import IndexView, InstructionView
+from web.views import InstructionView, LandingView
 
 urlpatterns = [
     path("", LandingView.as_view(), name="landing"),
