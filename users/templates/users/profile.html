@@ -1,35 +1,40 @@
-{% extends 'web/pages/base.html' %}
-{% block title %}Профиль - Melomatch{% endblock %}
+{% extends "web/pages/base.html" %}
 
+{% block title %}
+  Профиль - Melomatch
+{% endblock title %}
 {% block body %}
-{% include "web/includes/tab.html" %}
-<div class="container">
+  {% include "web/includes/tab.html" %}
+  <div class="container">
     <div class="columns is-centered">
-        <div class="column is-one-quarters-desktop is-two-thirds-tablet">
-            <div class="columns">
-
-                <div class="column is-one-quarter-desktop mx-3 is-centered mr-5">
-                    <div class="is-flex is-justify-content-center my-6">
-                        <div class="image">
-                            <img class="is-rounded" src="{{ object.avatar }}/islands-200" alt="Фотография пользователя">
-                        </div>
-                    </div>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <div class="field is-grouped is-grouped-centered mt-6">
-                            <div class="control">
-                                <button class="button is-danger is-light my-3" type="submit">Выйти из аккаунта</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="column is-two-quarters-desktop mx-5">
-                    {% include "web/includes/base_form.html" %}
-                </div>
-
+      <div class="column is-one-quarters-desktop is-two-thirds-tablet">
+        <div class="columns">
+          <div class="column is-one-quarter-desktop mx-3 is-centered mr-5">
+            <div class="is-flex is-justify-content-center my-6">
+              <div class="image">
+                <img class="is-rounded"
+                     src="{{ object.avatar }}/islands-200"
+                     alt="Фотография пользователя"
+                     width="64px"
+                     height="64px">
+              </div>
             </div>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <div class="field is-grouped is-grouped-centered mt-6">
+                <div class="control">
+                  <button class="button is-danger is-light my-3" type="submit">
+                    Выйти из аккаунта
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="column is-two-quarters-desktop mx-5">
+            {% include "web/includes/base_form.html" %}
+          </div>
         </div>
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
+{% endblock body %}

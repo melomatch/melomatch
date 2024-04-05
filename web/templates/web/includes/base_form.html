@@ -1,28 +1,26 @@
 <form method="post">
-    {% csrf_token %}
-    {% for error in form.non_field_errors %}
+  {% csrf_token %}
+  {% for error in form.non_field_errors %}
     <div class="notification is-danger is-light">{{ error }}</div>
-    {% endfor %}
-    {% for field in form %}
+  {% endfor %}
+  {% for field in form %}
     <div class="field">
-        <label class="label">{{ field.label }}</label>
-        {% if field.field.widget.choices %}
+      <label class="label">{{ field.label }}</label>
+      {% if field.field.widget.choices %}
         <div class="control">
-            <div class="select is-fullwidth">
-                {{ field }}
-            </div>
+          <div class="select is-fullwidth">{{ field }}</div>
         </div>
-        {% else %}
+      {% else %}
         {{ field }}
-        {% endif %}
-        {% for error in field.errors %}
+      {% endif %}
+      {% for error in field.errors %}
         <p class="help is-danger">{{ error }}</p>
-        {% endfor %}
+      {% endfor %}
     </div>
-    {% endfor %}
-    <div class="field is-grouped is-grouped-centered">
-        <div class="control">
-            <button class="button is-link my-3" type="submit">Сохранить</button>
-        </div>
+  {% endfor %}
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <button class="button is-link my-3" type="submit">Сохранить</button>
     </div>
+  </div>
 </form>

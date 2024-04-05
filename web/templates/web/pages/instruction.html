@@ -1,52 +1,60 @@
-{% extends 'web/pages/base.html' %}
+{% extends "web/pages/base.html" %}
+
 {% load static %}
 
-{% block title %}Инструкция - Melomatch{% endblock %}
-
+{% block title %}
+  Инструкция - Melomatch
+{% endblock title %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'web/css/instruction.css' %}?">
-{% endblock %}
-
+  <link rel="stylesheet" href="{% static 'web/css/instruction.css' %}?">
+{% endblock styles %}
 {% block body %}
-    <section class="hero is-fullheight-with-navbar">
-        <h1 class="title mt-5 has-text-centered">Инструкция по установке расширения</h1>
-        <div class="hero-body">
-            <div class="columns is-vcentered">
-                <div class="column">
-                    <article class="message is-primary">
-                        <div class="message-body instruction-hover">
-                            <b>Шаг первый:</b>
-                            <p>Установите расширение <a href="{{ tampermonkey_link }}"><b>Tampermonkey</b></a>, которое
-                                позволит вам использовать пользовательские скрипты в вашем браузере. Это расширение
-                                обеспечит необходимую инфраструктуру для корректной работы нашего сервиса.</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="column">
-                    <article class="message is-primary">
-                        <div class="message-body instruction-hover">
-                            <b>Шаг второй:</b>
-                            <p>После установки Tampermonkey перейдите на наш веб-сайт и загрузите
-                              <a href="https://github.com/melomatch/token-handler/raw/develop/token-handler.user.js">
-                                <b>расширение</b></a> для обработки токена.
-                              Этот шаг необходим для авторизации вашего аккаунта и обеспечения
-                              безопасного взаимодействия с нашим сервисом.
-                            </p>
-                        </div>
-                    </article>
-                </div>
-                <div class="column">
-                    <article class="message is-primary">
-                        <div class="message-body instruction-hover">
-                            <b>Шаг третий:</b>
-                          <p><a href=""><b>Обновите</b></a> страницу и пройдите процесс авторизации через ваш
-                            аккаунт Яндекс, используя учетные данные, предоставленные на этой платформе.
-                            Это позволит нам получить доступ к вашим музыкальным предпочтениям и обеспечить
-                            функциональность сравнения вкусов по плейлисту понравившихся треков.</p>
-                        </div>
-                    </article>
-                </div>
+  <section class="hero is-fullheight-with-navbar">
+    <h1 class="title mt-5 has-text-centered">
+      Инструкция по установке расширения
+    </h1>
+    <div class="hero-body">
+      <div class="columns is-vcentered">
+        <div class="column">
+          <article class="message is-primary">
+            <div class="message-body instruction-hover">
+              <b>Шаг первый:</b>
+              <p>
+                Установите расширение <a href="{{ tampermonkey_link }}"><b>Tampermonkey</b></a>, которое
+                позволит вам использовать пользовательские скрипты в вашем браузере. Это расширение
+                обеспечит необходимую инфраструктуру для корректной работы нашего сервиса.
+              </p>
             </div>
+          </article>
         </div>
-    </section>
-{% endblock %}
+        <div class="column">
+          <article class="message is-primary">
+            <div class="message-body instruction-hover">
+              <b>Шаг второй:</b>
+              <p>
+                После установки Tampermonkey перейдите на наш веб-сайт и загрузите
+                <a href="https://github.com/melomatch/token-handler/raw/develop/token-handler.user.js">
+                  <b>расширение</b></a> для обработки токена.
+                    Этот шаг необходим для авторизации вашего аккаунта и обеспечения
+                    безопасного взаимодействия с нашим сервисом.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <div class="column">
+              <article class="message is-primary">
+                <div class="message-body instruction-hover">
+                  <b>Шаг третий:</b>
+                  <p>
+                    <a href=""><b>Обновите</b></a> страницу и пройдите процесс авторизации через ваш
+                    аккаунт Яндекс, используя учетные данные, предоставленные на этой платформе.
+                    Это позволит нам получить доступ к вашим музыкальным предпочтениям и обеспечить
+                    функциональность сравнения вкусов по плейлисту понравившихся треков.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endblock body %}
