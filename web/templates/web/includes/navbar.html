@@ -1,57 +1,58 @@
 {% load static %}
+
 <nav class="navbar has-shadow"
      role="navigation"
      aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item is-flex" href="{% url 'landing' %}">
-            <figure class="image is-48x48">
-                <img src="{% static 'web/images/logo_icon.png' %}"
-                     width="48"
-                     height="48"
-                     alt="Логотип melomatch">
-            </figure>
-            <p class="title is-3 ml-3">melomatch</p>
+  <div class="navbar-brand">
+    <a class="navbar-item is-flex" href="{% url 'landing' %}">
+      <figure class="image is-48x48">
+        <img src="{% static 'web/images/logo_icon.png' %}"
+             width="48"
+             height="48"
+             alt="Логотип melomatch">
+      </figure>
+      <p class="title is-3 ml-3">melomatch</p>
+    </a>
+    <a role="button"
+       class="navbar-burger"
+       aria-label="menu"
+       aria-expanded="false"
+       data-target="navbarMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarMenu" class="navbar-menu">
+    <div class="navbar-end">
+      {% if user.is_authenticated %}
+        <a class="navbar-item is-size-5" href="{% url 'profile' %}">
+          <figure class="image is-32x32 mr-3">
+            <img class="is-rounded"
+                 src="{{ user.avatar }}/islands-34"
+                 alt="Фотография пользователя"
+                 width="32px"
+                 height="32px" />
+          </figure>
+          <strong>{{ user.username }}</strong>
         </a>
-        <a role="button"
-           class="navbar-burger"
-           aria-label="menu"
-           aria-expanded="false"
-           data-target="navbarMenu">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-    <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-end">
-            {% if user.is_authenticated %}
-                <a class="navbar-item is-size-5" href="{% url 'profile' %}">
-                    <figure class="image is-32x32 mr-3">
-                        <img class="is-rounded"
-                             src="{{ user.avatar }}/islands-34"
-                             alt="Фотография пользователя"
-                             width="32px"
-                             height="32px" />
-                    </figure>
-                    <strong>{{ user.username }}</strong>
-                </a>
-            {% else %}
-                <div class="navbar-item">
-                    <a id="yandex-oauth"
-                       class="button is-link"
-                       href="{% url 'instruction' %}">
-                        <span class="icon is-small">
-                            <i class="fab fa-yandex"></i>
-                        </span>
-                        <strong>Войти через Яндекс</strong>
-                    </a>
-                </div>
-            {% endif %}
-            <div class="navbar-item">
-                <span class="icon">
-                    <i id="theme-icon" class="fa-solid fa-moon is-clickable"></i>
-                </span>
-            </div>
+      {% else %}
+        <div class="navbar-item">
+          <a id="yandex-oauth"
+             class="button is-link"
+             href="{% url 'instruction' %}">
+            <span class="icon is-small">
+              <i class="fab fa-yandex"></i>
+            </span>
+            <strong>Войти через Яндекс</strong>
+          </a>
         </div>
+      {% endif %}
+      <div class="navbar-item">
+        <span class="icon">
+          <i id="theme-icon" class="fa-solid fa-moon is-clickable"></i>
+        </span>
+      </div>
     </div>
+  </div>
 </nav>

@@ -40,9 +40,20 @@ ignore = ["RUF001", "RUF012", "COM812"]
 ignore-fully-untyped = true
 
 [tool.djlint]
-profile="django"
+blank_line_after_tag="load,extends"
+format_attribute_template_tags=true
 format_css=true
 format_js=true
+indent=2
+max_line_length = 80
+profile="django"
+use_gitignore=true
+
+[tool.djlint.css]
+indent_size=2
+
+[tool.djlint.js]
+indent_size=2
 
 [pycodestyle]
 max-line-length = 120
