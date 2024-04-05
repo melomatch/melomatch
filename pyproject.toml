@@ -16,6 +16,7 @@ psycopg2-binary = "^2.9.9"
 python-dotenv = "^1.0.1"
 requests = "^2.31.0"
 ua-parser = "^0.18.0"
+djlint = "^1.34.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -37,6 +38,11 @@ ignore = ["RUF001", "RUF012", "COM812"]
 
 [tool.ruff.lint.flake8-annotations]
 ignore-fully-untyped = true
+
+[tool.djlint]
+profile="django"
+format_css=true
+format_js=true
 
 [pycodestyle]
 max-line-length = 120
