@@ -31,6 +31,6 @@ class Command(BaseCommand):
         with open("genres-yandex.json", encoding="utf-8") as f:
             info = f.read()
             obj = json.loads(info)
-        genres = [Genre(title=genre_info["title"]) for genre_info in obj["genres"]]
+        genres = [Genre(title=genre_info["id"]) for genre_info in obj["genres"]]
         Genre.objects.bulk_create(genres)
         print(_("Жанры добавлены в таблицу Genre"))
