@@ -1,0 +1,438 @@
+{
+  "genres": [
+    {
+      "id": "rusrap",
+      "title": "Русский рэп",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrap-icon/%%",
+      "liked": true
+    },
+    {
+      "id": "rap",
+      "title": "Рэп и хип-хоп",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrap-icon/%%",
+      "liked": true
+    },
+    {
+      "id": "foreignrap",
+      "title": "Иностранный рэп",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrap-icon/%%",
+      "liked": true
+    },
+    {
+      "id": "dnb",
+      "title": "Драм-н-бэйс",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-house-icon/%%",
+      "liked": true
+    },
+    {
+      "id": "dubstep",
+      "title": "Дабстеп",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-dubstep-icon/%%",
+      "liked": true
+    },
+    {
+      "id": "pop",
+      "title": "Поп",
+      "color": "#ff6665",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-pop-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "indie",
+      "title": "Инди",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-local-indie-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "dance",
+      "title": "Танцевальная",
+      "color": "#ff9344",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-house-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "rusrock",
+      "title": "Русский рок",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "estrada",
+      "title": "Эстрада",
+      "color": "#e43c31",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-estrada-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "electronics",
+      "title": "Электроника",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-dubstep-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "alternative",
+      "title": "Альтернатива",
+      "color": "#c44f69",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-alternative-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "punk",
+      "title": "Панк",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-hardcore-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "forchildren",
+      "title": "Детская",
+      "color": "#ffbb5a",
+      "cover": "avatars.yandex.net/get-music-misc/2413828/rotor-genre-children-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "rock",
+      "title": "Иностранный рок",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "fairytales",
+      "title": "Аудиосказки",
+      "color": "#ffbb5a",
+      "cover": "avatars.yandex.net/get-music-misc/2413828/rotor-genre-children-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "metal",
+      "title": "Метал",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "classical",
+      "title": "Мировая классика",
+      "color": "#6fc3e0",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-vocal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "folk",
+      "title": "Музыка мира",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "rnb",
+      "title": "R&B",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-soul-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "hardrock",
+      "title": "Хард-рок",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "numetal",
+      "title": "Ню-метал",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "bard",
+      "title": "Авторская песня",
+      "color": "#ffbb5a",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusbards-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "house",
+      "title": "Хаус",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-house-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "jazz",
+      "title": "Джаз",
+      "color": "#e3208f",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-tradjazz-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "shanson",
+      "title": "Шансон",
+      "color": "#e43c31",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-shanson-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "industrial",
+      "title": "Индастриал",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "modern",
+      "title": "Современная классика",
+      "color": "#6fc3e0",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-vocal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "posthardcore",
+      "title": "Постхардкор",
+      "color": "#c44f69",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-alternative-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "folkrock",
+      "title": "Фолк-рок",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "newage",
+      "title": "Нью-эйдж",
+      "color": "#6C65A9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-dubstep-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "ukrrock",
+      "title": "Украинский рок",
+      "color": "#3779BC",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "trance",
+      "title": "Транс",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-house-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "soul",
+      "title": "Соул",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-soul-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "reggae",
+      "title": "Регги",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-reggaeton-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "blues",
+      "title": "Блюз",
+      "color": "#a5c94b",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-blues-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "kpop",
+      "title": "K-pop",
+      "color": "#ff6665",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-pop-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "latinfolk",
+      "title": "Латиноамериканская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "country",
+      "title": "Кантри",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-country-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "lounge",
+      "title": "Лаундж",
+      "color": "#6C65A9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-dubstep-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "techno",
+      "title": "Техно",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-house-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "rnr",
+      "title": "Рок-н-ролл",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "caucasian",
+      "title": "Кавказская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/28592/rotor-genre-caucasian-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "tradjazz",
+      "title": "Традиционный",
+      "color": "#e3208f",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-tradjazz-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "folkmetal",
+      "title": "Фолк",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "conjazz",
+      "title": "Современный",
+      "color": "#e3208f",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-tradjazz-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "ska",
+      "title": "Ска",
+      "color": "#c44f69",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-ska-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "postrock",
+      "title": "Построк",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "celtic",
+      "title": "Кельтская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "rusfolk",
+      "title": "Русская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "progmetal",
+      "title": "Прогрессив",
+      "color": "#9d65a9",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-metal-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "hardcore",
+      "title": "Хардкор",
+      "color": "#c44f69",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-alternative-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "experimental",
+      "title": "Экспериментальная",
+      "color": "#6c65a9",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-dubstep-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "prog",
+      "title": "Прогрессивный рок",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "funk",
+      "title": "Фанк",
+      "color": "#59cd9c",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-soul-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "eastern",
+      "title": "Восточная",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "newwave",
+      "title": "New Wave",
+      "color": "#3779bc",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-rusrock-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "disco",
+      "title": "Диско",
+      "color": "#ff6665",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-pop-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "reggaeton",
+      "title": "Реггетон",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-reggaeton-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "tatar",
+      "title": "Татарская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "eurofolk",
+      "title": "Европейская",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/40584/rotor-genre-rusfolk-icon/%%",
+      "liked": false
+    },
+    {
+      "id": "dub",
+      "title": "Даб",
+      "color": "#fd9060",
+      "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-reggaeton-icon/%%",
+      "liked": false
+    }
+  ]
+}

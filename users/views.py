@@ -14,6 +14,7 @@ from users.services import (
     get_user_info_by_yandex_token,
     prepare_yandex_user_data,
 )
+from users.tasks import load_users_tracks
 
 
 class YandexOAuthCallbackView(RedirectView):
@@ -35,6 +36,7 @@ class YandexOAuthCallbackView(RedirectView):
         user = get_user_by_yandex_data(prepare_yandex_user_data(result))
         login(request, user)
 
+        load_users_tracks.apply_async(args=[token, user.id])
         return super().get(request, *args, **kwargs)
 
 

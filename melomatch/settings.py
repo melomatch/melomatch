@@ -128,3 +128,14 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+
+# Redis configuration
+REDIS_HOST = env("REDIS_HOST", "localhost")
+REDIS_PORT = int(env("REDIS_PORT", "6379"))
+REDIS_DB = int(env("REDIS_DB", "0"))
+
+# Celery configuration
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}")
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "is_secure": env("CELERY_BROKER_IS_SECURE", "false").lower() == "true"
+}
