@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core import serializers
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import RedirectView, UpdateView
@@ -35,7 +36,10 @@ class YandexOAuthCallbackView(RedirectView):
 
         user = get_user_by_yandex_data(prepare_yandex_user_data(result))
         login(request, user)
-        load_users_tracks.apply_async(args=[token])
+
+        load_users_tracks.apply_async(
+            args=[token, serializers.serialize("json", User.objects.filter(username=user.username))]
+        )
         return super().get(request, *args, **kwargs)
 
 

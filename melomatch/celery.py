@@ -4,7 +4,7 @@ from celery import Celery
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "melomatch.settings")
 
-app = Celery("soil")
+app = Celery("melomatch")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
 
