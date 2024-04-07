@@ -1,12 +1,11 @@
-import datetime
-import json
+from datetime import datetime
 
 import yandex_music
 from celery import shared_task
-from django.core import serializers
 from yandex_music import Album as YandexAlbum
 from yandex_music import Artist as YandexArtist
 
+from users.models import User
 from web.models import Artist, Genre, Track
 
 
@@ -30,18 +29,18 @@ def get_track_genres_track_release_date(albums: list[YandexAlbum]) -> (Genre, da
         try:
             genre_instance, _ = Genre.objects.get_or_create(title=album.genre)
             genres.append(genre_instance)
-            release_dates.append(datetime.datetime.fromisoformat(album.release_date))
+            release_dates.append(datetime.fromisoformat(album.release_date))
         except Exception:
             raise Exception("Album bad information")
     return genres, min(release_dates)
 
 
 @shared_task
-def load_users_tracks(token: str, json_users: json) -> None:
+def load_users_tracks(token: str, user_id: int) -> None:
     client = yandex_music.Client(token).init()
     tracks_from_yandex = client.users_likes_tracks().fetch_tracks()
     users_tracks = []
-    for track in tracks_from_yandex[50:60]:
+    for track in tracks_from_yandex:
         if not Track.objects.filter(yandex_id=track.id).exists():
             try:
                 track_yandex_id, track_title = track.id, track.title
@@ -65,6 +64,5 @@ def load_users_tracks(token: str, json_users: json) -> None:
                 users_tracks.append(track_instance)
             except Exception as e:
                 print(f"{e}")
-    user = next(serializers.deserialize("json", json_users)).object
-    user.save()
-    user.tracks.add(*users_tracks)
+
+    User.objects.get(id=user_id).tracks.add(*users_tracks)
