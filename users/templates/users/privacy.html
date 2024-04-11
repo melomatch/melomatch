@@ -1,0 +1,48 @@
+{% extends "web/pages/base.html" %}
+
+{% block title %}
+  Настройки конфиденциальности - Melomatch
+{% endblock title %}
+{% block body %}
+  {% include "web/includes/tab.html" %}
+  <div class="columns is-centered">
+    <div class="column is-three-fifths">
+      <div class="my-6">
+        <h3 class="subtitle is-3">Настройка аккаунта</h3>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="field mt-4">
+              {% if field.name == "is_private" %}
+                <p class="has-text-weight-medium">
+                  Вы можете сделать ваш аккаунт приватным, чтобы другие пользователи не могли его просматривать.
+                </p>
+              {% else %}
+                <p class="has-text-weight-medium mt-5">
+                  Вы можете активировать ссылку для сравнения музыки, чтобы легче находить людей с похожим вкусом.
+                </p>
+              {% endif %}
+              {{ field }}
+              {{ field.label_tag }}
+            </div>
+          {% endfor %}
+          <div class="content">
+            <article class="message">
+              <div class="message-body">
+                <p class="is-size-6 has-text-weight-medium my-2">
+                  Ваша ссылка для сравнения музыки:
+                </p>
+                {{ user_link }}
+              </div>
+            </article>
+          </div>
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button class="button is-link my-3" type="submit">Сохранить</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
