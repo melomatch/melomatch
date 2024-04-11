@@ -14,7 +14,9 @@ def get_track_artists(artists: list[YandexArtist]) -> list[Artist]:
     for artist in artists:
         try:
             artist_instance, _ = Artist.objects.get_or_create(
-                yandex_id=artist.id, name=artist.name, avatar=artist.cover
+                yandex_id=artist.id,
+                name=artist.name,
+                avatar=artist.cover.uri.replace("%%", "400x400"),
             )
             all_artists.append(artist_instance)
         except Exception:
