@@ -41,13 +41,7 @@
             {# TODO: change link to compare taste #}
             <a class="button is-link" href="{% url 'landing' %}">Сравнить вкус</a>
           {% else %}
-            <a class="button is-link yandex-oauth is-medium"
-               href="{% url 'instruction' %}">
-              <span class="icon is-small">
-                <i class="fab fa-yandex"></i>
-              </span>
-              <strong>Войти через Яндекс</strong>
-            </a>
+            {% include "web/includes/yandex_button.html" with additional_classes="is-medium" %}
           {% endif %}
         {% endif %}
       </div>
