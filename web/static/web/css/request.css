@@ -1,0 +1,13 @@
+.is-256x256 {
+    width: 256px;
+    height: 256px;
+}
+
+.emoji-container {
+    text-align: -webkit-center;
+}
+
+.text-container {
+    max-width: 30%;
+    text-wrap: balance;
+}
