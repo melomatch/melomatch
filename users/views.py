@@ -7,7 +7,6 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
-from melomatch.settings import USER_LINK_URL
 from users.forms import PrivacyForm, ProfileForm
 from users.models import User
 from users.services import (
@@ -66,5 +65,6 @@ class PrivacyView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(
-            **kwargs, user_link=f"{USER_LINK_URL}{self.request.user.username}"
+            **kwargs,
+            user_link=self.request.build_absolute_uri(f"/request/{self.request.user.username}"),
         )

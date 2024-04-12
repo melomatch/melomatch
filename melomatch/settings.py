@@ -139,6 +139,3 @@ CELERY_BROKER_URL = env("CELERY_BROKER_URL", f"redis://{REDIS_HOST}:{REDIS_PORT}
 CELERY_BROKER_TRANSPORT_OPTIONS = {
     "is_secure": env("CELERY_BROKER_IS_SECURE", "false").lower() == "true"
 }
-
-# User's url for compare music
-USER_LINK_URL = "http://127.0.0.1:8000/request/" if DEBUG else "https://melomatch.ru/request/"

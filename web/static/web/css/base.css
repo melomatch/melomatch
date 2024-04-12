@@ -10,6 +10,7 @@ html {
     max-height: 3rem
 }
 
-.switch[type=checkbox]:focus+label:before {
-    outline: 1px solid #b5b5b5
+.switch[type=checkbox]:focus+label::after,
+.switch[type=checkbox]:focus+label::before {
+    outline: 0 solid #b5b5b5;
 }

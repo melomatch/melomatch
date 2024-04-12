@@ -5,7 +5,7 @@
   {% endfor %}
   {% for field in form %}
     <div class="field">
-      <label class="label">{{ field.label_tag }}</label>
+      <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
       {% if field.field.widget.choices %}
         <div class="control">
           <div class="select is-fullwidth">{{ field }}</div>
