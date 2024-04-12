@@ -1,5 +1,4 @@
 {% extends "web/pages/base.html" %}
-
 {% load static %}
 
 {% block styles %}
@@ -15,7 +14,12 @@
     <div class="hero-body">
       <div class="container emoji-container">
         {% if not request_owner.is_active_link %}
-          <lottie-player src="{% static 'web/images/sad.tgs' %}" class="is-256x256 mb-5" autoplay loop mode="normal"></lottie-player>
+          <lottie-player src="{% static 'web/images/sad.tgs' %}"
+                         class="is-256x256 mb-5"
+                         autoplay
+                         loop
+                         mode="normal">
+          </lottie-player>
         {% else %}
           <figure class="image is-256x256 mb-5">
             <img class="is-rounded"
@@ -41,7 +45,7 @@
             {# TODO: change link to compare taste #}
             <a class="button is-link" href="{% url 'landing' %}">Сравнить вкус</a>
           {% else %}
-            {% include "web/includes/yandex_button.html" with additional_classes="is-medium" %}
+            {% include "web/includes/yandex_button.html" with additional_classes=" is-medium" %}
           {% endif %}
         {% endif %}
       </div>

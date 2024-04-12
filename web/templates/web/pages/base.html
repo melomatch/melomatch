@@ -25,14 +25,17 @@
   <body>
     {% include "web/includes/navbar.html" %}
     {% include "web/includes/messages.html" %}
+
     {% block body %}
     {% endblock body %}
+
     <script src="{% static 'web/js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'web/js/bulma-collapsible.min.js' %}"></script>
     <script src="{% static 'web/js/collapsible_init.js' %}"></script>
     <script src="{% static 'web/js/navbar_collapse.js' %}"></script>
     <script src="{% static 'web/js/theme_switch.js' %}"></script>
     <script src="{% static 'web/js/notification_delete.js' %}"></script>
+
     {% block scripts %}
     {% endblock scripts %}
   </body>
