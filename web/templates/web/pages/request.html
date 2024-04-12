@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'web/css/request.css' %}" />
+  <link rel="stylesheet" href="{% static 'web/css/request.css' %}?" />
 {% endblock styles %}
 
 {% block title %}
@@ -30,7 +30,9 @@
           </figure>
         {% endif %}
         <div class="subtitle text-container">
-          {% if not request_owner.is_active_link %}
+          {% if request_owner == request.user %}
+            Попытка сравнить свой музыкальный вкус с самим собой - как пытаться найти отличия с самим собой в зеркале! Давайте найдём того, с кем это делать будет интереснее?
+          {% elif not request_owner.is_active_link %}
             К сожалению, этот пользователь не открыл свою ссылку для сравнения.
           {% else %}
             Готовы узнать, насколько ваш музыкальный вкус схож с <b>{{ request_owner.username }}</b>? Давайте выясним!
@@ -41,7 +43,10 @@
             На данный момент вы не можете сравнить с ним свой музкальный вкус.
           </div>
         {% else %}
-          {% if request.user.is_authenticated %}
+          {% if request_owner == request.user %}
+            {# TODO: change link to users search #}
+            <a class="button is-link" href="{% url 'landing' %}">Найти пользователя</a>
+          {% elif request.user.is_authenticated %}
             {# TODO: change link to compare taste #}
             <a class="button is-link" href="{% url 'landing' %}">Сравнить вкус</a>
           {% else %}
