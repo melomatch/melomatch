@@ -1,6 +1,8 @@
+from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.views.generic import TemplateView
 
+from users.models import User
 from users.services import get_tampermonkey_link_by_user_agent
 
 
@@ -94,3 +96,16 @@ class LandingView(TemplateView):
         return super().get_context_data(
             **kwargs, features=features, authors=authors, questions=questions
         )
+
+
+class RequestView(TemplateView):
+    template_name = "web/pages/request.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        username = self.kwargs.get("username")
+        request_owner = get_object_or_404(User, username=username)
+        context["request_owner"] = request_owner
+
+        return context
