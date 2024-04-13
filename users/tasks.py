@@ -42,7 +42,7 @@ def load_users_tracks(token: str, user_id: int) -> None:
     client = yandex_music.Client(token).init()
     tracks_from_yandex = client.users_likes_tracks().fetch_tracks()
     users_tracks = []
-    for track in tracks_from_yandex[:20]:
+    for track in tracks_from_yandex:
         if not Track.objects.filter(yandex_id=track.id).exists():
             try:
                 track_yandex_id, track_title = track.id, track.title
