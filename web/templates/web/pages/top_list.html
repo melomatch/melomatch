@@ -1,0 +1,59 @@
+{% extends "web/pages/base.html" %}
+
+{% load static %}
+
+{% block title %}
+  Топ лист
+{% endblock title %}
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'web/css/top_list.css' %}?">
+{% endblock styles %}
+{% block body %}
+  {% include "web/includes/tab.html" %}
+  <div class="container">
+    <div class="buttons has-addons is-right">
+      <button id="top_list_button" class="button is-selected-switch-button">
+        ТОП-3
+      </button>
+      <button id="artist_list_button" class="button">Список</button>
+    </div>
+    <div id="top_list_content" class="columns is-centered is-vcentered">
+      {% for artist in top_artists|slice:":3" %}
+        <div class="column is-display-flex is-flex-direction-column is-align-items-center">
+          <figure class="image is-300x300">
+            <img class="is-rounded"
+                 src="{{ artist.artists__avatar }}400x400"
+                 alt="Artist image" />
+          </figure>
+          <p class="has-text-centered mt-5 has-text-weight-bold">
+            {{ artist.artists__name }}
+          </p>
+          <p class="has-text-centered mt-5 has-text-weight-bold is-size-2 place_{{ forloop.counter }}">
+            {{ forloop.counter }}
+            место
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+    <div id="artist_list_content"
+         class="columns is-centered is-vcentered is-hidden">
+      <div class="column is-half">
+        {% for artist in top_artists %}
+          <div class="is-flex is-flex-direction-row is-align-items-center">
+            <span class="is-size-3">{{ forloop.counter }}</span>
+            <figure class="image is-150x150 mx-5">
+              <img class="is-rounded"
+                   src="{{ artist.artists__avatar }}400x400"
+                   alt="Artist image" />
+            </figure>
+            <span class="is-size-3 is-flex-grow-1 has-text-right">{{ artist.artists__name }}</span>
+          </div>
+          <hr class="line" />
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock body %}
+{% block scripts %}
+  <script src="{% static 'web/js/top_switch.js' %}"></script>
+{% endblock scripts %}
