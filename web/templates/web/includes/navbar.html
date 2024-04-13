@@ -37,16 +37,7 @@
           <strong>{{ user.username }}</strong>
         </a>
       {% else %}
-        <div class="navbar-item">
-          <a id="yandex-oauth"
-             class="button is-link"
-             href="{% url 'instruction' %}">
-            <span class="icon is-small">
-              <i class="fab fa-yandex"></i>
-            </span>
-            <strong>Войти через Яндекс</strong>
-          </a>
-        </div>
+        <div class="navbar-item">{% include "web/includes/yandex_button.html" %}</div>
       {% endif %}
       <div class="navbar-item">
         <span class="icon">

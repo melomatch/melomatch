@@ -19,6 +19,6 @@
 
 Ручной запуск линтера: `ruff check --fix`
 
-Ручной запуск линтера для HTML шаблонов: `djlint . --extension=html --reformat`
+Ручной запуск линтера для HTML шаблонов: `djlint . --extension=html --reformat --lint`
 
 Ручной запуск pre-commit хуков: `pre-commit run`

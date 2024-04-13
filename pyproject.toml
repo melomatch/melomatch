@@ -43,7 +43,8 @@ ignore = ["RUF001", "RUF012", "COM812"]
 ignore-fully-untyped = true
 
 [tool.djlint]
-blank_line_after_tag="load,extends"
+blank_line_after_tag="load"
+max_blank_lines=1
 format_attribute_template_tags=true
 format_css=true
 format_js=true
@@ -51,6 +52,7 @@ indent=2
 max_line_length = 80
 profile="django"
 use_gitignore=true
+custom_html="lottie-player"
 
 [tool.djlint.css]
 indent_size=2

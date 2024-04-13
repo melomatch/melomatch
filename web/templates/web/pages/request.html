@@ -1,0 +1,63 @@
+{% extends "web/pages/base.html" %}
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'web/css/request.css' %}?" />
+{% endblock styles %}
+
+{% block title %}
+  Запрос от {{ request_owner.username }} - Melomatch
+{% endblock title %}
+
+{% block body %}
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container emoji-container">
+        {% if request_owner.is_active_link or request_owner == request.user %}
+          <figure class="image is-256x256 mb-5">
+            <img class="is-rounded"
+                 height="256"
+                 width="256"
+                 alt="Аватарка"
+                 src="{{ request_owner.avatar }}/islands-200" />
+          </figure>
+        {% else %}
+          <lottie-player src="{% static 'web/images/sad.tgs' %}"
+                         class="is-256x256 mb-5"
+                         autoplay
+                         loop
+                         mode="normal">
+          </lottie-player>
+        {% endif %}
+        <div class="subtitle text-container">
+          {% if request_owner == request.user %}
+            Попытка сравнить свой музыкальный вкус с самим собой - как пытаться найти отличия в собственном отражении! Давайте найдём того, с кем это делать будет интереснее?
+          {% elif not request_owner.is_active_link %}
+            К сожалению, этот пользователь не открыл свою ссылку для сравнения.
+          {% else %}
+            Готовы узнать, насколько ваш музыкальный вкус схож с <b>{{ request_owner.username }}</b>? Давайте выясним!
+          {% endif %}
+        </div>
+        {% if request_owner == request.user %}
+          {# TODO: change link to users search #}
+          <a class="button is-link" href="{% url 'landing' %}">Найти пользователя</a>
+        {% elif not request_owner.is_active_link %}
+          <div class="text-container">
+            На данный момент вы не можете сравнить с ним свой музыкальный вкус.
+          </div>
+        {% else %}
+          {% if request.user.is_authenticated %}
+            {# TODO: change link to compare taste #}
+            <a class="button is-link" href="{% url 'landing' %}">Сравнить вкус</a>
+          {% else %}
+            {% include "web/includes/yandex_button.html" with additional_classes=" is-medium" %}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock body %}
+
+{% block scripts %}
+  <script src="{% static 'web/js/tgs-player.js' %}"></script>
+{% endblock scripts %}
