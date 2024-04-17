@@ -1,15 +1,19 @@
 .place_1 {
     color: gold;
 }
-.place_2{
+
+.place_2 {
     color: silver
 }
-.place_3{
+
+.place_3 {
     color: #b6762d;
 }
-.is-selected-switch-button{
+
+.is-selected-switch-button {
     background: hsla(233, 100%, 58%, 0.32);
 }
-.line{
-    border: 2px solid rgba(128,128,128,0.31);
+
+.line {
+    border: 2px solid rgba(128, 128, 128, 0.31);
 }

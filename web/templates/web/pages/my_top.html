@@ -3,15 +3,15 @@
 {% load static %}
 
 {% block title %}
-  Топ лист
+  Мой топ - Melomatch
 {% endblock title %}
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'web/css/top_list.css' %}?">
+  <link rel="stylesheet" href="{% static 'web/css/my_top.css' %}?">
 {% endblock styles %}
 {% block body %}
   {% include "web/includes/tab.html" %}
   <div class="container">
-    <div class="is-flex is-flex-direction-row is-justify-content-end">
+    <div class="is-flex is-flex-direction-row is-justify-content-end mb-5">
       <div class="is-flex buttons has-addons ">
         <button id="top_list_button" class="button is-selected-switch-button">
           ТОП-3
@@ -26,7 +26,7 @@
             <figure class="image is-300x300">
               <img class="is-rounded"
                    src="{{ artist.artists__avatar }}400x400"
-                   alt="Artist image" />
+                   alt="Фото артиста" />
             </figure>
             <p class="has-text-centered mt-5 has-text-weight-bold">
               {{ artist.artists__name }}
@@ -53,7 +53,7 @@
             <figure class="image is-150x150 mx-5">
               <img class="is-rounded"
                    src="{{ artist.artists__avatar }}400x400"
-                   alt="Artist image" />
+                   alt="Фото артиста" />
             </figure>
             <span class="is-size-3 is-flex-grow-1 has-text-right place_{{ forloop.counter }}">{{ artist.artists__name }}</span>
           </div>

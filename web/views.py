@@ -24,7 +24,7 @@ class InstructionView(TemplateView):
 
 
 class TopListView(TemplateView):
-    template_name = "web/pages/top_list.html"
+    template_name = "web/pages/my_top.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,12 +33,12 @@ class TopListView(TemplateView):
             .prefetch_related("artists")
             .prefetch_related("genres")
         )
-        context["top_artists"] = (
+        context["top_artists"] = list(
             info.values("artists__name", "artists__avatar")
             .annotate(total=Count("artists"))
             .order_by("-total")
         )
-        context["top_genres"] = (
+        context["top_genres"] = list(
             info.values("genres__title").annotate(total=Count("genres")).order_by("-total")
         )
         return context

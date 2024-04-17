@@ -57,7 +57,7 @@ class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class PrivacyView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = PrivacyForm
     template_name = "users/privacy.html"
-    success_url = reverse_lazy("user_privacy")
+    success_url = reverse_lazy("privacy")
     success_message = "Ваши данные успешно обновлены"
 
     def get_object(self):
