@@ -1,5 +1,4 @@
 {% extends "web/pages/base.html" %}
-
 {% load static %}
 
 {% block styles %}
@@ -14,6 +13,7 @@
   </style>
   <link rel="stylesheet" href="{% static 'web/css/landing.css' %}?">
 {% endblock styles %}
+
 {% block body %}
   <section class="hero is-fullheight-with-navbar">
     <div class="hero-body">
@@ -115,6 +115,7 @@
     </div>
   </div>
 {% endblock body %}
+
 {% block scripts %}
   <script src="{% static 'web/js/landing_scroll.js' %}?"></script>
 {% endblock scripts %}

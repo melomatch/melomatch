@@ -1,7 +1,9 @@
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.views.generic import TemplateView
 
+from users.models import User
 from users.services import get_tampermonkey_link_by_user_agent
 from web.models import Track
 
@@ -84,7 +86,7 @@ class LandingView(TemplateView):
                 "дополнительное расширение Tampermonkey?",
                 "answer": "Во-первых, расширение нужно выкладывать (а возможно и переписывать) для "
                 "каждого браузера отдельно. Tampermonkey позволяет написать одно расширение, "
-                "которое будет работать на всех браузерах при наличии установленного Tampermonkey."
+                "которое будет работать на всех браузерах при наличии установленного Tampermonkey. "
                 "Во-вторых, публикация расширения в магазины расширений разных браузеров "
                 "не всегда бесплатная (например, для публикации в Chrome Web Store нужно "
                 "зарегистрировать аккаунт разработчика, для чего нужно оплатить сбор размером "
@@ -117,3 +119,16 @@ class LandingView(TemplateView):
         return super().get_context_data(
             **kwargs, features=features, authors=authors, questions=questions
         )
+
+
+class RequestView(TemplateView):
+    template_name = "web/pages/request.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        username = self.kwargs.get("username")
+        request_owner = get_object_or_404(User, username=username)
+        context["request_owner"] = request_owner
+
+        return context

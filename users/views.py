@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
-from users.forms import ProfileForm
+from users.forms import PrivacyForm, ProfileForm
 from users.models import User
 from users.services import (
     get_user_by_yandex_data,
@@ -52,3 +52,19 @@ class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         return User.objects.get(username=self.request.user)
+
+
+class PrivacyView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    form_class = PrivacyForm
+    template_name = "users/privacy.html"
+    success_url = reverse_lazy("user_privacy")
+    success_message = "Ваши данные успешно обновлены"
+
+    def get_object(self):
+        return User.objects.get(username=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(
+            **kwargs,
+            user_link=self.request.build_absolute_uri(f"/request/{self.request.user.username}"),
+        )

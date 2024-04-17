@@ -15,6 +15,8 @@ class User(AbstractUser):
     sex = models.CharField(max_length=1, choices=Sex.choices, blank=True, verbose_name="Пол")
     avatar = models.URLField(max_length=511, verbose_name="URL фотографии пользователя")
     tracks = models.ManyToManyField(Track, verbose_name="Треки")
+    is_private = models.BooleanField(default=False)
+    is_active_link = models.BooleanField(default=True)
 
     def __str__(self):
         return self.username

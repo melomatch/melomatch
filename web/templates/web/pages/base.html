@@ -16,6 +16,7 @@
     </title>
     <link rel="stylesheet" href="{% static 'web/css/bulma-1.0.0.min.css' %}">
     <link rel="stylesheet" href="{% static 'web/css/bulma-divider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'web/css/bulma-switch.min.css' %}">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'web/css/base.css' %}?">
@@ -25,8 +26,10 @@
   <body>
     {% include "web/includes/navbar.html" %}
     {% include "web/includes/messages.html" %}
+
     {% block body %}
     {% endblock body %}
+
     <script src="{% static 'web/js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'web/js/bulma-collapsible.min.js' %}"></script>
     <script src="{% static 'web/js/collapsible_init.js' %}"></script>

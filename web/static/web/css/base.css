@@ -9,8 +9,10 @@ html {
 .navbar-item img {
     max-height: 3rem
 }
-:root {
-    --bulma-navbar-height: 4rem !important;
+
+.switch[type=checkbox]:focus+label::after,
+.switch[type=checkbox]:focus+label::before {
+    outline: 0 solid #b5b5b5;
 }
 
 .is-150x150 {
