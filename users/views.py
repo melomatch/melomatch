@@ -22,6 +22,12 @@ from users.tasks import load_users_tracks
 class YandexOAuthCallbackView(RedirectView):
     url = reverse_lazy("profile")
 
+    def get_redirect_url(self, *args, **kwargs):
+        next_url = kwargs.get("next_url")
+        if next_url and next_url not in ["/", "/instruction"]:
+            self.url = next_url
+        return super().get_redirect_url(self, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return super().get(request, *args, **kwargs)
@@ -31,12 +37,10 @@ class YandexOAuthCallbackView(RedirectView):
         if state_param:
             query_params = urllib.parse.parse_qs(state_param)
             next_url = query_params.get("next", [None])[0]
-            if next_url and next_url != "/":
-                self.url = next_url
 
         token = request.GET.get("access_token")
         if not token:
-            return redirect("landing")
+            return redirect(next_url or "landing")
 
         result, success = get_user_info_by_yandex_token(token)
         if not success:
@@ -47,7 +51,7 @@ class YandexOAuthCallbackView(RedirectView):
         login(request, user)
 
         load_users_tracks.apply_async(args=[token, user.id])
-        return super().get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs, next_url=next_url)
 
 
 class LogoutView(DjangoLogoutView):
