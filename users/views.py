@@ -15,6 +15,7 @@ from users.services import (
     prepare_yandex_user_data,
 )
 from users.tasks import load_users_tracks
+from web.views import TabsMixin
 
 
 class YandexOAuthCallbackView(RedirectView):
@@ -44,7 +45,7 @@ class LogoutView(DjangoLogoutView):
     next_page = reverse_lazy("landing")
 
 
-class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ProfileView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = ProfileForm
     template_name = "users/profile.html"
     success_url = reverse_lazy("profile")
@@ -53,8 +54,13 @@ class ProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_object(self):
         return User.objects.get(username=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tabs"]["profile"]["active"] = True
+        return context
 
-class PrivacyView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class PrivacyView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = PrivacyForm
     template_name = "users/privacy.html"
     success_url = reverse_lazy("privacy")
@@ -64,7 +70,9 @@ class PrivacyView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return User.objects.get(username=self.request.user)
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(
-            **kwargs,
-            user_link=self.request.build_absolute_uri(f"/request/{self.request.user.username}"),
+        context = super().get_context_data(**kwargs)
+        context["user_link"] = self.request.build_absolute_uri(
+            f"/request/{self.request.user.username}"
         )
+        context["tabs"]["privacy"]["active"] = True
+        return context

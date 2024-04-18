@@ -8,6 +8,32 @@ from users.services import get_tampermonkey_link_by_user_agent
 from web.models import Track
 
 
+class TabsMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tabs"] = {
+            "profile": {
+                "title": "Профиль",
+                "icon_class": "fas fa-user",
+                "url": "profile",
+                "active": False,
+            },
+            "my_top": {
+                "title": "Мой топ",
+                "icon_class": "fas fa-medal",
+                "url": "my_top",
+                "active": False,
+            },
+            "privacy": {
+                "title": "Приватность",
+                "icon_class": "fas fa-eye-slash",
+                "url": "privacy",
+                "active": False,
+            },
+        }
+        return context
+
+
 class IndexView(TemplateView):
     template_name = "web/pages/base.html"
 
@@ -23,7 +49,7 @@ class InstructionView(TemplateView):
         return context
 
 
-class TopListView(TemplateView):
+class TopListView(TabsMixin, TemplateView):
     template_name = "web/pages/my_top.html"
 
     def get_context_data(self, **kwargs):
@@ -41,6 +67,7 @@ class TopListView(TemplateView):
         context["top_genres"] = list(
             info.values("genres__title").annotate(total=Count("genres")).order_by("-total")
         )
+        context["tabs"]["my_top"]["active"] = True
         return context
 
 
