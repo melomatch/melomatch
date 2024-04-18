@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,6 +26,14 @@ class YandexOAuthCallbackView(RedirectView):
         if request.user.is_authenticated:
             return super().get(request, *args, **kwargs)
 
+        next_url = None
+        state_param = request.GET.get("state")
+        if state_param:
+            query_params = urllib.parse.parse_qs(state_param)
+            next_url = query_params.get("next", [None])[0]
+            if next_url and next_url != "/":
+                self.url = next_url
+
         token = request.GET.get("access_token")
         if not token:
             return redirect("landing")
@@ -31,7 +41,7 @@ class YandexOAuthCallbackView(RedirectView):
         result, success = get_user_info_by_yandex_token(token)
         if not success:
             messages.error(request, result)
-            return redirect("landing")
+            return redirect(next_url if next_url else "landing")
 
         user = get_user_by_yandex_data(prepare_yandex_user_data(result))
         login(request, user)
