@@ -1,6 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
+from django.urls import reverse
 from django.views.generic import TemplateView
 
 from users.models import User
@@ -15,19 +16,19 @@ class TabsMixin:
             "profile": {
                 "title": "Профиль",
                 "icon_class": "fas fa-user",
-                "url": "profile",
+                "url": reverse("profile"),
                 "active": False,
             },
             "my_top": {
                 "title": "Мой топ",
                 "icon_class": "fas fa-medal",
-                "url": "my_top",
+                "url": reverse("my_top"),
                 "active": False,
             },
             "privacy": {
                 "title": "Приватность",
                 "icon_class": "fas fa-eye-slash",
-                "url": "privacy",
+                "url": reverse("privacy"),
                 "active": False,
             },
         }
