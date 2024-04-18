@@ -14,7 +14,9 @@ def get_track_artists(artists: list[YandexArtist]) -> list[Artist]:
     for artist in artists:
         try:
             artist_instance, _ = Artist.objects.get_or_create(
-                yandex_id=artist.id, name=artist.name, avatar=artist.cover
+                yandex_id=artist.id,
+                name=artist.name,
+                avatar=f"https://{artist.cover.uri[:-2]}",
             )
             all_artists.append(artist_instance)
         except Exception:
@@ -55,7 +57,7 @@ def load_users_tracks(token: str, user_id: int) -> None:
                     yandex_id=track_yandex_id,
                     title=track_title,
                     release_date=track_release_date,
-                    cover=track.cover_uri.replace("%%", "400x400"),
+                    cover=f"https://{track.cover_uri[:-2]}",
                 )
 
                 track_instance.save()

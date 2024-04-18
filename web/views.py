@@ -1,9 +1,11 @@
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.views.generic import TemplateView
 
 from users.models import User
 from users.services import get_tampermonkey_link_by_user_agent
+from web.models import Track
 
 
 class IndexView(TemplateView):
@@ -17,6 +19,27 @@ class InstructionView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["tampermonkey_link"] = get_tampermonkey_link_by_user_agent(
             self.request.META["HTTP_USER_AGENT"],
+        )
+        return context
+
+
+class TopListView(TemplateView):
+    template_name = "web/pages/my_top.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        info = (
+            Track.objects.filter(user=self.request.user)
+            .prefetch_related("artists")
+            .prefetch_related("genres")
+        )
+        context["top_artists"] = list(
+            info.values("artists__name", "artists__avatar")
+            .annotate(total=Count("artists"))
+            .order_by("-total")
+        )
+        context["top_genres"] = list(
+            info.values("genres__title").annotate(total=Count("genres")).order_by("-total")
         )
         return context
 
