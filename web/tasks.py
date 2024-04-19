@@ -1,9 +1,10 @@
 from datetime import datetime
 
-import yandex_music
 from celery import shared_task
 from yandex_music import Album as YandexAlbum
 from yandex_music import Artist as YandexArtist
+from yandex_music import Client
+from yandex_music import Track as YandexTrack
 
 from users.models import User
 from web.models import Artist, Genre, Track
@@ -38,8 +39,8 @@ def get_track_genres_track_release_date(albums: list[YandexAlbum]) -> (Genre, da
 
 
 @shared_task
-def load_users_tracks(token: str, user_id: int) -> None:
-    client = yandex_music.Client(token).init()
+def load_user_tracks(token: str, user_id: int) -> None:
+    client = Client(token).init()
     tracks_from_yandex = client.users_likes_tracks().fetch_tracks()
     users_tracks = []
     for track in tracks_from_yandex:
@@ -68,3 +69,28 @@ def load_users_tracks(token: str, user_id: int) -> None:
                 print(f"{e}")
 
     User.objects.get(id=user_id).tracks.add(*users_tracks)
+
+
+def prepare_track(track: YandexTrack) -> Track | None:
+    # Обычно у подкастов поле `remember_position == True`, а у треков `remember_position == False`.
+    if track.remember_position:
+        return None
+
+    album = track.albums[0]
+
+    release_date = album.release_date or album.year
+    release_date = (
+        datetime(album.year, 1, 1)
+        if isinstance(release_date, int)
+        else datetime.fromisoformat(release_date)
+    )
+
+    genre = Genre(title=album.genre)
+
+    return Track(
+        yandex_id=track.id,
+        title=track.title,
+        release_date=release_date,
+        cover=f"https://{track.cover_uri[:-3]}",
+        genre=genre,
+    )

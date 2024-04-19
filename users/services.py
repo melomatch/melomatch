@@ -7,7 +7,7 @@ from ua_parser.user_agent_parser import ParseUserAgent
 from users.enums import Sex
 from users.models import User
 from web.mappings import browsers_tampermonkey_links
-from web.tasks import load_users_tracks
+from web.tasks import load_user_tracks
 
 
 def get_user_info_by_yandex_token(token):
@@ -57,7 +57,7 @@ def get_user_by_yandex_data(data, token):
 
     user.save()
     if created:
-        load_users_tracks.apply_async(args=[token, user.id])
+        load_user_tracks.apply_async(args=[token, user.id])
 
     return user
 
