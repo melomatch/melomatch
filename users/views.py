@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
 from users.forms import PrivacyForm, ProfileForm
@@ -20,13 +20,11 @@ from users.tasks import load_users_tracks
 
 
 class YandexOAuthCallbackView(RedirectView):
-    url = reverse_lazy("profile")
-
     def get_redirect_url(self, *args, **kwargs):
         next_url = kwargs.get("next_url")
         if next_url and next_url not in ["/", "/instruction"]:
-            self.url = next_url
-        return super().get_redirect_url(self, *args, **kwargs)
+            return next_url
+        return reverse("profile")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
