@@ -1,10 +1,12 @@
+import urllib.parse
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
 from users.forms import PrivacyForm, ProfileForm
@@ -18,26 +20,36 @@ from users.tasks import load_users_tracks
 
 
 class YandexOAuthCallbackView(RedirectView):
-    url = reverse_lazy("profile")
+    def get_redirect_url(self, *args, **kwargs):
+        next_url = kwargs.get("next_url")
+        if next_url and next_url not in ["/", "/instruction"]:
+            return next_url
+        return reverse("profile")
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return super().get(request, *args, **kwargs)
 
+        next_url = None
+        state_param = request.GET.get("state")
+        if state_param:
+            query_params = urllib.parse.parse_qs(state_param)
+            next_url = query_params.get("next", [None])[0]
+
         token = request.GET.get("access_token")
         if not token:
-            return redirect("landing")
+            return redirect(next_url or "landing")
 
         result, success = get_user_info_by_yandex_token(token)
         if not success:
             messages.error(request, result)
-            return redirect("landing")
+            return redirect(next_url or "landing")
 
         user = get_user_by_yandex_data(prepare_yandex_user_data(result))
         login(request, user)
 
         load_users_tracks.apply_async(args=[token, user.id])
-        return super().get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs, next_url=next_url)
 
 
 class LogoutView(DjangoLogoutView):
