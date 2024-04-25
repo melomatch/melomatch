@@ -6,7 +6,9 @@ from web.models import Track
 
 
 class User(AbstractUser):
-    yandex_id = models.IntegerField(null=True, blank=True, unique=True, verbose_name="ID в Yandex")
+    yandex_id = models.BigIntegerField(
+        null=True, blank=True, unique=True, verbose_name="ID в Yandex"
+    )
     username = models.CharField(max_length=150, unique=True, verbose_name="Имя пользователя")
     first_name = models.CharField(max_length=150, verbose_name="Имя")
     last_name = models.CharField(max_length=150, verbose_name="Фамилия")
