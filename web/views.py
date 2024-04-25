@@ -36,10 +36,6 @@ class TabsMixin:
         return context
 
 
-class IndexView(TemplateView):
-    template_name = "web/pages/base.html"
-
-
 class InstructionView(TemplateView):
     template_name = "web/pages/instruction.html"
 
