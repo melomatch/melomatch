@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 from users.models import User
 from users.services import get_tampermonkey_link_by_user_agent
 from web.models import Track
+from web.permissions import CompareTastePermission
 
 
 class TabsMixin:
@@ -158,5 +159,17 @@ class RequestView(TemplateView):
         username = self.kwargs.get("username")
         request_owner = get_object_or_404(User, username=username)
         context["request_owner"] = request_owner
+
+        return context
+
+
+class CompareTasteView(CompareTastePermission, TemplateView):
+    template_name = "web/pages/compare_taste.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        request_owner = get_object_or_404(User, username=self.kwargs.get("username"))
+        context["user_to_compare"] = request_owner
 
         return context
