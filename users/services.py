@@ -47,18 +47,12 @@ def prepare_yandex_user_data(data):
 
 
 def get_user_by_yandex_data(data, token):
-    created = False
-
     try:
         user = User.objects.get(yandex_id=data["yandex_id"])
     except User.DoesNotExist:
         user = User(**data)
-        created = True
-
-    user.save()
-    if created:
+        user.save()
         load_user_tracks.apply_async(args=[token, user.id])
-
     return user
 
 
