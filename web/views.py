@@ -31,7 +31,7 @@ class TopListView(TemplateView):
         info = (
             Track.objects.filter(user=self.request.user)
             .prefetch_related("artists")
-            .prefetch_related("genres")
+            .select_related("genre")
         )
         context["top_artists"] = list(
             info.values("artists__name", "artists__avatar")
@@ -39,7 +39,7 @@ class TopListView(TemplateView):
             .order_by("-total")
         )
         context["top_genres"] = list(
-            info.values("genres__title").annotate(total=Count("genres")).order_by("-total")
+            info.values("genre__title").annotate(total=Count("genre__title")).order_by("-total")
         )
         return context
 
