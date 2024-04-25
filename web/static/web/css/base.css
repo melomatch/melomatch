@@ -12,7 +12,7 @@ html {
 
 .switch[type=checkbox]:focus+label::after,
 .switch[type=checkbox]:focus+label::before {
-    outline: 0 solid #b5b5b5;
+    outline: 1px solid #b5b5b5;
 }
 
 .is-150x150 {
