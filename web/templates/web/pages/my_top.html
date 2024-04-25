@@ -25,7 +25,9 @@
           <div class="column is-display-flex is-flex-direction-column is-align-items-center">
             <figure class="image is-300x300">
               <img class="is-rounded"
-                   src="{{ artist.artists__avatar }}400x400"
+                   height="300"
+                   width="300"
+                   src="{{ artist.artists__avatar }}/300x300"
                    alt="Фото артиста" />
             </figure>
             <p class="has-text-centered mt-5 has-text-weight-bold">
@@ -52,7 +54,9 @@
             <span class="is-size-3 place_{{ forloop.counter }}">{{ forloop.counter }}</span>
             <figure class="image is-150x150 mx-5">
               <img class="is-rounded"
-                   src="{{ artist.artists__avatar }}400x400"
+                   height="150"
+                   width="150"
+                   src="{{ artist.artists__avatar }}/150x150"
                    alt="Фото артиста" />
             </figure>
             <span class="is-size-3 is-flex-grow-1 has-text-right place_{{ forloop.counter }}">{{ artist.artists__name }}</span>

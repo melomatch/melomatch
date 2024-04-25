@@ -1,80 +1,76 @@
 from datetime import datetime
 
 from celery import shared_task
-from yandex_music import Album as YandexAlbum
 from yandex_music import Artist as YandexArtist
 from yandex_music import Client
 from yandex_music import Track as YandexTrack
 
 from users.models import User
 from web.models import Artist, Genre, Track
-
-
-def get_track_artists(artists: list[YandexArtist]) -> list[Artist]:
-    all_artists = []
-    for artist in artists:
-        try:
-            artist_instance, _ = Artist.objects.get_or_create(
-                yandex_id=artist.id,
-                name=artist.name,
-                avatar=f"https://{artist.cover.uri[:-2]}",
-            )
-            all_artists.append(artist_instance)
-        except Exception:
-            raise Exception("Artist bad information")
-    return all_artists
-
-
-def get_track_genres_track_release_date(albums: list[YandexAlbum]) -> (Genre, datetime):
-    genres = []
-    release_dates = []
-    for album in albums:
-        try:
-            genre_instance, _ = Genre.objects.get_or_create(title=album.genre)
-            genres.append(genre_instance)
-            release_dates.append(datetime.fromisoformat(album.release_date))
-        except Exception:
-            raise Exception("Album bad information")
-    return genres, min(release_dates)
+from web.services import get_saved_instances_by_unsaved_and_unique_saved, get_unique_model_instances
 
 
 @shared_task
 def load_user_tracks(token: str, user_id: int) -> None:
     client = Client(token).init()
     tracks_from_yandex = client.users_likes_tracks().fetch_tracks()
-    users_tracks = []
-    for track in tracks_from_yandex:
-        if not Track.objects.filter(yandex_id=track.id).exists():
-            try:
-                track_yandex_id, track_title = track.id, track.title
-                track_albums, track_artists = track.albums, track.artists
+    tracks, genres, artists, track_artists_map = prepare_tracks_genres_artists_lists(
+        tracks_from_yandex
+    )
 
-                if len(track_albums) == 0:
-                    raise Exception("No albums...")
+    saved_genres = Genre.objects.bulk_create(
+        get_unique_model_instances(genres, "title"),
+        update_conflicts=True,
+        unique_fields=["title"],
+        update_fields=["title"],
+    )
+    saved_artists = Artist.objects.bulk_create(
+        get_unique_model_instances(artists, "yandex_id"),
+        update_conflicts=True,
+        unique_fields=["yandex_id"],
+        update_fields=["name", "avatar"],
+    )
 
-                track_artists = get_track_artists(track_artists)
-                track_genres, track_release_date = get_track_genres_track_release_date(track_albums)
-                track_instance = Track(
-                    yandex_id=track_yandex_id,
-                    title=track_title,
-                    release_date=track_release_date,
-                    cover=f"https://{track.cover_uri[:-2]}",
-                )
+    saved_genres = get_saved_instances_by_unsaved_and_unique_saved(saved_genres, genres, "title")
+    for track, genre in zip(tracks, saved_genres, strict=False):
+        track.genre = genre
 
-                track_instance.save()
-                track_instance.artists.add(*track_artists)
-                track_instance.genres.add(*track_genres)
-                users_tracks.append(track_instance)
-            except Exception as e:
-                print(f"{e}")
+    saved_tracks = Track.objects.bulk_create(
+        tracks,
+        update_conflicts=True,
+        unique_fields=["yandex_id"],
+        update_fields=["title", "release_date", "cover"],
+    )
 
-    User.objects.get(id=user_id).tracks.add(*users_tracks)
+    saved_artists = get_saved_instances_by_unsaved_and_unique_saved(
+        saved_artists, artists, "yandex_id"
+    )
+    artists_processed = 0
+    track_artists = []
+    for track, artists in track_artists_map:
+        track_artists_count = len(artists)
+        track_artists += [
+            Track.artists.through(track_id=track.id, artist_id=artist.id)
+            for artist in saved_artists[artists_processed : artists_processed + track_artists_count]
+        ]
+        artists_processed += track_artists_count
+    Track.artists.through.objects.bulk_create(track_artists, ignore_conflicts=True)
+
+    User.objects.get(id=user_id).tracks.add(*saved_tracks)
 
 
-def prepare_track(track: YandexTrack) -> Track | None:
+def prepare_artist(artist: YandexArtist) -> Artist:
+    return Artist(
+        yandex_id=artist.id,
+        name=artist.name,
+        avatar=f"https://{artist.cover.uri[:-3]}",
+    )
+
+
+def prepare_track(track: YandexTrack) -> tuple[Track | None, Genre | None, list[Artist] | None]:
     # Обычно у подкастов поле `remember_position == True`, а у треков `remember_position == False`.
     if track.remember_position:
-        return None
+        return None, None, None
 
     album = track.albums[0]
 
@@ -85,12 +81,25 @@ def prepare_track(track: YandexTrack) -> Track | None:
         else datetime.fromisoformat(release_date)
     )
 
+    artists = [artist for artist in map(prepare_artist, track.artists) if artist]
     genre = Genre(title=album.genre)
-
-    return Track(
+    track = Track(
         yandex_id=track.id,
         title=track.title,
         release_date=release_date,
         cover=f"https://{track.cover_uri[:-3]}",
-        genre=genre,
     )
+    return track, genre, artists
+
+
+def prepare_tracks_genres_artists_lists(
+    tracks: list[Track],
+) -> tuple[list[Track], list[Genre], list[Artist], list[tuple[Track, list[Artist]]]]:
+    tracks_list, genres_list, artists_list, track_genre_map, track_artists_map = [], [], [], [], []
+    for track, genre, artists in map(prepare_track, tracks):
+        tracks_list.append(track)
+        genres_list.append(genre)
+        artists_list += artists
+        track_genre_map.append((track, genre))
+        track_artists_map.append((track, artists))
+    return tracks_list, genres_list, artists_list, track_artists_map
