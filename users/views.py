@@ -9,14 +9,15 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
-from users.enums import Service
+from users.enums import RefreshStatus, RefreshType, Service
 from users.forms import PrivacyForm, ProfileForm
-from users.models import Token, User
+from users.models import Refresh, Token, User
 from users.services import (
     get_user_by_yandex_data,
     get_user_info_by_yandex_token,
     prepare_yandex_user_data,
 )
+from web.tasks import load_user_tracks
 from web.views import TabsMixin
 
 
@@ -93,3 +94,28 @@ class PrivacyView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView
         )
         context["tabs"]["privacy"]["active"] = True
         return context
+
+
+class RefreshTracksView(LoginRequiredMixin, SuccessMessageMixin, RedirectView):
+    url = reverse_lazy("profile")
+    success_message = "Обновление началось. Ваши треки обновятся в течение нескольких минут."
+
+    def post(self, request, *args, **kwargs):
+        service, user_id = Service.YANDEX, request.user.id
+        token = Token.objects.filter(user_id=user_id, service=service).first()
+        if not token:
+            messages.error(
+                request,
+                "К сожалению, у нас нет данных о вашей авторизации. "
+                "Попробуйте выйти из аккаунта и войти снова.",
+            )
+
+        old_refresh = (
+            Refresh.objects.filter(user_id=user_id, service=service).order_by("-updated_at").first()
+        )
+        if old_refresh and old_refresh.status != RefreshStatus.FINISHED:
+            messages.error(request, "Ваши треки уже находятся в процессе обновления.")
+
+        refresh = Refresh.objects.create(user_id=user_id, service=service, type=RefreshType.MANUAL)
+        load_user_tracks.apply_async(args=[token.value, user_id, refresh.id])
+        return super().post(request, *args, **kwargs)
