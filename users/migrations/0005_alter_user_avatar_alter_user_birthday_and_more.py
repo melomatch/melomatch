@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="user",
             name="is_private",
-            field=models.BooleanField(default=False, verbose_name="виден в поиске?"),
+            field=models.BooleanField(default=False, verbose_name="скрыт в поиске?"),
         ),
         migrations.AlterField(
             model_name="user",
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="user",
             name="username",
-            field=models.CharField(max_length=150, unique=True, verbose_name="никнейм"),
+            field=models.CharField(max_length=150, unique=True, verbose_name="имя пользователя"),
         ),
         migrations.AlterField(
             model_name="user",
