@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from users.enums import Sex
+from users.enums import RefreshStatus, RefreshType, Service, Sex
 from web.models import Track
 
 
@@ -24,3 +24,35 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class Token(models.Model):
+    value = models.CharField(max_length=255, verbose_name="токен")
+    user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="пользователь")
+    service = models.CharField(
+        max_length=15, choices=Service.choices, verbose_name="музыкальный сервис"
+    )
+
+    def __str__(self):
+        return f"Токен {self.user.username} от {self.service}: {self.value}"
+
+
+class Refresh(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="пользователь")
+    service = models.CharField(
+        max_length=15, choices=Service.choices, verbose_name="музыкальный сервис"
+    )
+    type = models.CharField(
+        max_length=7, choices=RefreshType.choices, verbose_name="способ обновления"
+    )
+    status = models.CharField(
+        max_length=15,
+        choices=RefreshStatus.choices,
+        default=RefreshStatus.IN_PROCESS,
+        verbose_name="статус обновления",
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="начато в")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="изменено в")
+
+    def __str__(self):
+        return f"Обновление {self.user.username} от {self.created_at}"
