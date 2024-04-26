@@ -1,7 +1,8 @@
 from celery import shared_task
 from yandex_music import Client
 
-from users.models import User
+from users.enums import RefreshStatus
+from users.models import Refresh, User
 from web.models import Artist, Genre, Track
 from web.services import (
     get_saved_instances_by_unsaved_and_unique_saved,
@@ -11,7 +12,7 @@ from web.services import (
 
 
 @shared_task
-def load_user_tracks(token: str, user_id: int) -> None:
+def load_user_tracks(token: str, user_id: int, refresh_id: int) -> None:
     client = Client(token).init()
     tracks_from_yandex = client.users_likes_tracks().fetch_tracks()
     tracks, genres, artists, track_artists_map = prepare_tracks_genres_artists_lists(
@@ -57,3 +58,4 @@ def load_user_tracks(token: str, user_id: int) -> None:
     Track.artists.through.objects.bulk_create(track_artists, ignore_conflicts=True)
 
     User.objects.get(id=user_id).tracks.add(*saved_tracks)
+    Refresh.objects.filter(id=refresh_id).update(status=RefreshStatus.FINISHED)

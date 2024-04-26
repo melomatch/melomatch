@@ -4,8 +4,8 @@ from http import HTTPStatus
 import requests
 from ua_parser.user_agent_parser import ParseUserAgent
 
-from users.enums import Sex
-from users.models import User
+from users.enums import RefreshType, Service, Sex
+from users.models import Refresh, User
 from web.mappings import browsers_tampermonkey_links
 from web.tasks import load_user_tracks
 
@@ -52,7 +52,8 @@ def get_user_by_yandex_data(data, token):
     except User.DoesNotExist:
         user = User(**data)
         user.save()
-        load_user_tracks.apply_async(args=[token, user.id])
+        refresh = Refresh.objects.create(user=user, service=Service.YANDEX, type=RefreshType.AUTO)
+        load_user_tracks.apply_async(args=[token, user.id, refresh.id])
     return user
 
 
