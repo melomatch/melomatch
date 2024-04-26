@@ -12,6 +12,10 @@
 `pre-commit install`
 6. Выполнить миграции в БД  
 `python manage.py migrate`
+7. Добавить жанры в БД  
+`python manage.py addmusicgenres`
+8. Запустить celery  
+`celery -A melomatch worker -l info`
 7. Запустить веб-сервер  
 `python manage.py runserver`
 

@@ -9,6 +9,9 @@ authors = [
 ]
 readme = "README.md"
 
+[project]
+requires-python = ">=3.12"
+
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.0.2"
@@ -25,6 +28,7 @@ yandex-music = "^2.2.0"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.1"
 pre-commit = "^3.6.2"
+coloreflection = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -37,7 +41,7 @@ line-length = 100
 select = ["F", "E", "W", "C90", "I", "N", "UP", "ANN", "ASYNC", "S", "BLE", "B", "A", "COM", "C4",
     "DJ", "EM", "FA", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SIM",
     "TID", "TCH", "INT", "ARG", "PTH", "ERA", "PGH", "PL", "TRY", "FLY", "PERF", "LOG", "RUF"]
-ignore = ["RUF001", "RUF012", "COM812", "ARG002"]
+ignore = ["RUF001", "RUF012", "COM812", "RUF003", "ARG002"]
 
 [tool.ruff.lint.flake8-annotations]
 ignore-fully-untyped = true

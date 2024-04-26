@@ -16,7 +16,6 @@ from users.services import (
     get_user_info_by_yandex_token,
     prepare_yandex_user_data,
 )
-from users.tasks import load_users_tracks
 from web.views import TabsMixin
 
 
@@ -46,10 +45,9 @@ class YandexOAuthCallbackView(RedirectView):
             messages.error(request, result)
             return redirect(next_url or "landing")
 
-        user = get_user_by_yandex_data(prepare_yandex_user_data(result))
+        user = get_user_by_yandex_data(prepare_yandex_user_data(result), token)
         login(request, user)
 
-        load_users_tracks.apply_async(args=[token, user.id])
         return super().get(request, *args, **kwargs, next_url=next_url)
 
 
