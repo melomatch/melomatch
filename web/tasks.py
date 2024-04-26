@@ -1,13 +1,13 @@
-from datetime import datetime
-
 from celery import shared_task
-from yandex_music import Artist as YandexArtist
 from yandex_music import Client
-from yandex_music import Track as YandexTrack
 
 from users.models import User
 from web.models import Artist, Genre, Track
-from web.services import get_saved_instances_by_unsaved_and_unique_saved, get_unique_model_instances
+from web.services import (
+    get_saved_instances_by_unsaved_and_unique_saved,
+    get_unique_model_instances,
+    prepare_tracks_genres_artists_lists,
+)
 
 
 @shared_task
@@ -57,48 +57,3 @@ def load_user_tracks(token: str, user_id: int) -> None:
     Track.artists.through.objects.bulk_create(track_artists, ignore_conflicts=True)
 
     User.objects.get(id=user_id).tracks.add(*saved_tracks)
-
-
-def prepare_artist(artist: YandexArtist) -> Artist:
-    return Artist(
-        yandex_id=artist.id,
-        name=artist.name,
-        avatar=f"https://{artist.cover.uri[:-3]}",
-    )
-
-
-def prepare_track(track: YandexTrack) -> tuple[Track | None, Genre | None, list[Artist] | None]:
-    # Обычно у подкастов поле `remember_position == True`, а у треков `remember_position == False`.
-    if track.remember_position:
-        return None, None, None
-
-    album = track.albums[0]
-
-    release_date = album.release_date or album.year
-    release_date = (
-        datetime(album.year, 1, 1)
-        if isinstance(release_date, int)
-        else datetime.fromisoformat(release_date)
-    )
-
-    artists = [artist for artist in map(prepare_artist, track.artists) if artist]
-    genre = Genre(title=album.genre)
-    track = Track(
-        yandex_id=track.id,
-        title=track.title,
-        release_date=release_date,
-        cover=f"https://{track.cover_uri[:-3]}",
-    )
-    return track, genre, artists
-
-
-def prepare_tracks_genres_artists_lists(
-    tracks: list[Track],
-) -> tuple[list[Track], list[Genre], list[Artist], list[tuple[Track, list[Artist]]]]:
-    tracks_list, genres_list, artists_list, track_artists_map = [], [], [], []
-    for track, genre, artists in map(prepare_track, tracks):
-        tracks_list.append(track)
-        genres_list.append(genre)
-        artists_list += artists
-        track_artists_map.append((track, artists))
-    return tracks_list, genres_list, artists_list, track_artists_map
