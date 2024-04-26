@@ -9,8 +9,9 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
+from users.enums import Service
 from users.forms import PrivacyForm, ProfileForm
-from users.models import User
+from users.models import Token, User
 from users.services import (
     get_user_by_yandex_data,
     get_user_info_by_yandex_token,
@@ -46,6 +47,12 @@ class YandexOAuthCallbackView(RedirectView):
             return redirect(next_url or "landing")
 
         user = get_user_by_yandex_data(prepare_yandex_user_data(result), token)
+        Token.objects.update_or_create(
+            user=user,
+            service=Service.YANDEX,
+            defaults={"value": token},
+            create_defaults={"value": token},
+        )
         login(request, user)
 
         return super().get(request, *args, **kwargs, next_url=next_url)

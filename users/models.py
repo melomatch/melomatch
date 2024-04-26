@@ -33,6 +33,9 @@ class Token(models.Model):
         max_length=15, choices=Service.choices, verbose_name="музыкальный сервис"
     )
 
+    class Meta:
+        unique_together = ("user", "service")
+
     def __str__(self):
         return f"Токен {self.user.username} от {self.service}: {self.value}"
 
