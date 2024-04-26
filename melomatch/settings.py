@@ -54,6 +54,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+if DEBUG and env("DEBUG_SQL", "false").lower() == "true":
+    MIDDLEWARE.append("melomatch.debug.SqlPrintingMiddleware")
+
 ROOT_URLCONF = "melomatch.urls"
 
 TEMPLATES = [
