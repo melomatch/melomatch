@@ -57,5 +57,5 @@ def load_user_tracks(token: str, user_id: int, refresh_id: int) -> None:
         artists_processed += track_artists_count
     Track.artists.through.objects.bulk_create(track_artists, ignore_conflicts=True)
 
-    User.objects.get(id=user_id).tracks.add(*saved_tracks)
+    User.objects.get(id=user_id).tracks.set(saved_tracks)
     Refresh.objects.filter(id=refresh_id).update(status=RefreshStatus.FINISHED)
