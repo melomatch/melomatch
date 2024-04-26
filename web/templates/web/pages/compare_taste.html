@@ -1,0 +1,37 @@
+{% extends "web/pages/base.html" %}
+
+{% block title %}
+  Сравнение вкуса с {{ user_to_compare.username }} - Melomatch
+{% endblock title %}
+
+{% block styles %}
+  <style>
+    .loader.is-big {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+{% endblock styles %}
+
+{% block body %}
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container is-flex is-flex-direction-column is-align-items-center">
+        <div class="mb-5">
+          <div class="columns is-centered">
+            <div class="column is-narrow">
+              {% include "web/includes/avatar_256x256.html" with avatar=user_to_compare.avatar username=user_to_compare.username %}
+            </div>
+            <div class="column is-narrow">
+              {% include "web/includes/avatar_256x256.html" with avatar=user.avatar username=user.username %}
+            </div>
+          </div>
+        </div>
+        <div class="subtitle has-text-centered mb-5">
+          Сравниваем ваши вкусы. Пожалуйста, подождите.
+        </div>
+        <div class="is-rounded loader is-big"></div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Track(models.Model):
-    yandex_id = models.IntegerField(unique=True, verbose_name="идентификатор в Яндексе")
+    yandex_id = models.BigIntegerField(unique=True, verbose_name="идентификатор в Яндексе")
     title = models.CharField(max_length=255, verbose_name="название")
     release_date = models.DateTimeField(verbose_name="дата выхода")
     cover = models.URLField(max_length=511, verbose_name="обложка")
@@ -30,7 +30,7 @@ class Genre(models.Model):
 
 
 class Artist(models.Model):
-    yandex_id = models.IntegerField(unique=True, verbose_name="идентификатор в Яндексе")
+    yandex_id = models.BigIntegerField(unique=True, verbose_name="идентификатор в Яндексе")
     name = models.CharField(max_length=255, verbose_name="имя")
     avatar = models.URLField(max_length=511, verbose_name="фотография")
 

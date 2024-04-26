@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="user",
             name="yandex_id",
-            field=models.IntegerField(
+            field=models.BigIntegerField(
                 blank=True, null=True, unique=True, verbose_name="идентификатор в Яндексе"
             ),
         ),

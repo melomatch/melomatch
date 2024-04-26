@@ -14,13 +14,7 @@
     <div class="hero-body">
       <div class="container emoji-container">
         {% if request_owner.is_active_link or request_owner == request.user %}
-          <figure class="image is-256x256 mb-5">
-            <img class="is-rounded"
-                 height="256"
-                 width="256"
-                 alt="Аватарка"
-                 src="{{ request_owner.avatar }}/islands-200" />
-          </figure>
+          {% include "web/includes/avatar_256x256.html" with avatar=request_owner.avatar username=request_owner.username %}
         {% else %}
           <lottie-player src="{% static 'web/images/sad.tgs' %}"
                          class="is-256x256 mb-5"
@@ -47,8 +41,8 @@
           </div>
         {% else %}
           {% if request.user.is_authenticated %}
-            {# TODO: change link to compare taste #}
-            <a class="button is-link" href="{% url 'landing' %}">Сравнить вкус</a>
+            <a class="button is-link"
+               href="{% url 'compare_taste' request_owner.username %}">Сравнить вкус</a>
           {% else %}
             {% include "web/includes/yandex_button.html" with additional_classes=" is-medium" %}
           {% endif %}
