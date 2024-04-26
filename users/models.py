@@ -58,4 +58,4 @@ class Refresh(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="изменено в")
 
     def __str__(self):
-        return f"Обновление {self.user.username} от {self.created_at.strftime("%d.%m.%Y %H:%M:%S")}"
+        return f"Обновление {self.user.username} от {self.created_at.strftime("%H:%M:%S %d.%m.%Y")}"

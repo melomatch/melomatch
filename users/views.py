@@ -75,6 +75,11 @@ class ProfileView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tabs"]["profile"]["active"] = True
+        context["refresh"] = (
+            Refresh.objects.filter(user=self.request.user, service=Service.YANDEX)
+            .order_by("-updated_at")
+            .first()
+        )
         return context
 
 
@@ -96,9 +101,8 @@ class PrivacyView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView
         return context
 
 
-class RefreshTracksView(LoginRequiredMixin, SuccessMessageMixin, RedirectView):
+class RefreshTracksView(LoginRequiredMixin, RedirectView):
     url = reverse_lazy("profile")
-    success_message = "Обновление началось. Ваши треки обновятся в течение нескольких минут."
 
     def post(self, request, *args, **kwargs):
         service, user_id = Service.YANDEX, request.user.id
@@ -109,13 +113,18 @@ class RefreshTracksView(LoginRequiredMixin, SuccessMessageMixin, RedirectView):
                 "К сожалению, у нас нет данных о вашей авторизации. "
                 "Попробуйте выйти из аккаунта и войти снова.",
             )
+            return super().post(request, *args, **kwargs)
 
         old_refresh = (
             Refresh.objects.filter(user_id=user_id, service=service).order_by("-updated_at").first()
         )
         if old_refresh and old_refresh.status != RefreshStatus.FINISHED:
             messages.error(request, "Ваши треки уже находятся в процессе обновления.")
+            return super().post(request, *args, **kwargs)
 
         refresh = Refresh.objects.create(user_id=user_id, service=service, type=RefreshType.MANUAL)
         load_user_tracks.apply_async(args=[token.value, user_id, refresh.id])
+        messages.info(
+            request, "Обновление началось. " "Ваши треки обновятся в течение нескольких минут."
+        )
         return super().post(request, *args, **kwargs)
