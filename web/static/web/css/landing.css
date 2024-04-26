@@ -25,3 +25,8 @@ body {
     transition: height 0.5s ease-out;
     overflow: hidden;
 }
+
+.icon-link {
+    background: none;
+    border: none;
+}
