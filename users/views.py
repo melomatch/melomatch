@@ -13,7 +13,6 @@ from users.enums import RefreshStatus, RefreshType, Service
 from users.forms import PrivacyForm, ProfileForm
 from users.models import Refresh, Token, User
 from users.services import (
-    get_user_by_yandex_data,
     get_user_info_by_yandex_token,
     prepare_yandex_user_data,
 )
@@ -47,13 +46,23 @@ class YandexOAuthCallbackView(RedirectView):
             messages.error(request, result)
             return redirect(next_url or "landing")
 
-        user = get_user_by_yandex_data(prepare_yandex_user_data(result), token)
+        user_data = prepare_yandex_user_data(result)
+        user, created = User.objects.get_or_create(
+            yandex_id=user_data.pop("yandex_id"), defaults=user_data
+        )
         Token.objects.update_or_create(
             user=user,
             service=Service.YANDEX,
             defaults={"value": token},
             create_defaults={"value": token},
         )
+
+        if created:
+            refresh = Refresh.objects.create(
+                user=user, service=Service.YANDEX, type=RefreshType.AUTO
+            )
+            load_user_tracks.apply_async(args=[token, user.id, refresh.id])
+
         login(request, user)
 
         return super().get(request, *args, **kwargs, next_url=next_url)
