@@ -20,6 +20,8 @@ djlint = "^1.34.1"
 celery = "^5.3.6"
 redis = "^5.0.3"
 yandex-music = "^2.2.0"
+numpy = "^1.26.4"
+scikit-learn = "^1.4.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -37,7 +39,7 @@ line-length = 100
 select = ["F", "E", "W", "C90", "I", "N", "UP", "ANN", "ASYNC", "S", "BLE", "B", "A", "COM", "C4",
     "DJ", "EM", "FA", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SIM",
     "TID", "TCH", "INT", "ARG", "PTH", "ERA", "PGH", "PL", "TRY", "FLY", "PERF", "LOG", "RUF"]
-ignore = ["RUF001", "RUF012", "COM812", "ARG002"]
+ignore = ["RUF001", "RUF012", "COM812", "ARG002", "ANN101"]
 
 [tool.ruff.lint.flake8-annotations]
 ignore-fully-untyped = true
