@@ -30,9 +30,10 @@ class CompareTastesModel:
         self.all_tracks = list(set(list(comparer_tracks) + list(compared_to_tracks)))
         return comparer_tracks, compared_to_tracks
 
-    def evaluate(self) -> list:
+    def evaluate(self) -> int:
         comparer_tracks, compared_to_tracks = self._get_users_tracks()
         comparer_vector, compared_to_vector = self._get_users_vectors(
             comparer_tracks, compared_to_tracks
         )
-        return cosine_similarity([comparer_vector, compared_to_vector])[0][1]
+        similarity = cosine_similarity([comparer_vector], [compared_to_vector])[0]
+        return int(similarity * 100)
