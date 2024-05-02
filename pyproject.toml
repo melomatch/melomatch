@@ -34,12 +34,13 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 line-length = 100
+target-version = "py312"
 
 [tool.ruff.lint]
 select = ["F", "E", "W", "C90", "I", "N", "UP", "ANN", "ASYNC", "S", "BLE", "B", "A", "COM", "C4",
     "DJ", "EM", "FA", "ICN", "G", "INP", "PIE", "T20", "PYI", "PT", "Q", "RSE", "RET", "SLF", "SIM",
     "TID", "TCH", "INT", "ARG", "PTH", "ERA", "PGH", "PL", "TRY", "FLY", "PERF", "LOG", "RUF"]
-ignore = ["RUF001", "RUF012", "COM812", "ARG002", "ANN101"]
+ignore = ["RUF001", "RUF012", "COM812", "RUF003", "ARG002", "ANN101"]
 
 [tool.ruff.lint.flake8-annotations]
 ignore-fully-untyped = true
