@@ -1,5 +1,7 @@
-$(document).ready(function() {
-  $('.notification .delete').on('click', function() {
-    $(this).parent('.notification').remove();
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".notification .delete").forEach((closeButton) => {
+    closeButton.addEventListener("click", () => {
+      closeButton.closest(".notification").remove();
+    });
   });
 });

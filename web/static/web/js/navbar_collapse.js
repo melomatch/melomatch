@@ -1,9 +1,6 @@
-$(document).ready(function() {
-
-  $(".navbar-burger").click(function() {
-
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#navbarBurger").on("click", () => {
+    document.querySelector("#navbarBurger").classList.toggle("is-active");
+    document.querySelector("#navbarMenu").classList.toggle("is-active");
   });
 });
