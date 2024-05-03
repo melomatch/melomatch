@@ -1,0 +1,51 @@
+{% extends "web/pages/base.html" %}
+
+{% block title %}
+  Поиск пользователей для сравнения - Melomatch
+{% endblock title %}
+
+{% block body %}
+  <div class="columns is-centered my-4">
+    <div class="column is-half">
+      <form action="{% url 'search_user' %}" method="get">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input type="search"
+                   name="q"
+                   placeholder="Найти пользователя.."
+                   class="input" />
+          </div>
+          <div class="control">
+            <button class="button is-link">
+              <span class="icon"><i class="fas fa-search"></i></span>
+            </button>
+          </div>
+        </div>
+      </form>
+      <div class="my-6">
+        {% for user in users %}
+          <div class="media">
+            <div class="media-left">
+              {% include "web/includes/avatar_circle.html" with avatar=user.avatar username=user.username size=150 %}
+            </div>
+            <div class="media-content p-5">
+              <div class="content">
+                <p class="title is-size-5 has-text-weight-semibold mb-2">
+                  {{ user.first_name }} {{ user.last_name }}
+                </p>
+                <p class="subtitle is-size-6">{{ user.username }}</p>
+                <div class="mt-5">
+                  <a class="button is-link is-light"
+                     href="{% url 'compare_taste' user.username %}?by=search">Сравнить вкус</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p>Под ваш запрос пользователей найдено не было..</p>
+        {% endfor %}
+      </div>
+      {% include "web/includes/pagination.html" %}
+    </div>
+  </div>
+{% endblock body %}
