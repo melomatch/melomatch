@@ -32,6 +32,12 @@ class TabsMixin:
                 "url": reverse("privacy"),
                 "active": False,
             },
+            "search": {
+                "title": "Поиск",
+                "icon_class": "fas fa-search",
+                "url": reverse("search_user"),
+                "active": False,
+            },
         }
         return context
 

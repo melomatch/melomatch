@@ -140,7 +140,7 @@ class RefreshTracksView(LoginRequiredMixin, RedirectView):
         return super().post(request, *args, **kwargs)
 
 
-class SearchUserView(LoginRequiredMixin, ListView):
+class SearchUserView(TabsMixin, LoginRequiredMixin, ListView):
     model = User
     template_name = "users/search.html"
     context_object_name = "users"
@@ -159,4 +159,5 @@ class SearchUserView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
+        context["tabs"]["search"]["active"] = True
         return context | {"query_params": dict(self.request.GET)}
