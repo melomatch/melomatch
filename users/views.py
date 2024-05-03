@@ -9,14 +9,14 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView, UpdateView
 
+from users.enums import RefreshStatus, RefreshType, Service
 from users.forms import PrivacyForm, ProfileForm
-from users.models import User
+from users.models import Refresh, Token, User
 from users.services import (
-    get_user_by_yandex_data,
     get_user_info_by_yandex_token,
     prepare_yandex_user_data,
 )
-from users.tasks import load_users_tracks
+from web.tasks import load_user_tracks
 from web.views import TabsMixin
 
 
@@ -46,10 +46,25 @@ class YandexOAuthCallbackView(RedirectView):
             messages.error(request, result)
             return redirect(next_url or "landing")
 
-        user = get_user_by_yandex_data(prepare_yandex_user_data(result))
+        user_data = prepare_yandex_user_data(result)
+        user, created = User.objects.get_or_create(
+            yandex_id=user_data.pop("yandex_id"), defaults=user_data
+        )
+        Token.objects.update_or_create(
+            user=user,
+            service=Service.YANDEX,
+            defaults={"value": token},
+            create_defaults={"value": token},
+        )
+
+        if created:
+            refresh = Refresh.objects.create(
+                user=user, service=Service.YANDEX, type=RefreshType.AUTO
+            )
+            load_user_tracks.apply_async(args=[token, user.id, refresh.id])
+
         login(request, user)
 
-        load_users_tracks.apply_async(args=[token, user.id])
         return super().get(request, *args, **kwargs, next_url=next_url)
 
 
@@ -69,6 +84,11 @@ class ProfileView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["tabs"]["profile"]["active"] = True
+        context["refresh"] = (
+            Refresh.objects.filter(user=self.request.user, service=Service.YANDEX)
+            .order_by("-updated_at")
+            .first()
+        )
         return context
 
 
@@ -88,3 +108,32 @@ class PrivacyView(TabsMixin, LoginRequiredMixin, SuccessMessageMixin, UpdateView
         )
         context["tabs"]["privacy"]["active"] = True
         return context
+
+
+class RefreshTracksView(LoginRequiredMixin, RedirectView):
+    url = reverse_lazy("profile")
+
+    def post(self, request, *args, **kwargs):
+        service, user_id = Service.YANDEX, request.user.id
+        token = Token.objects.filter(user_id=user_id, service=service).first()
+        if not token:
+            messages.error(
+                request,
+                "К сожалению, у нас нет данных о вашей авторизации. "
+                "Попробуйте выйти из аккаунта и войти снова.",
+            )
+            return super().post(request, *args, **kwargs)
+
+        old_refresh = (
+            Refresh.objects.filter(user_id=user_id, service=service).order_by("-updated_at").first()
+        )
+        if old_refresh and old_refresh.status != RefreshStatus.FINISHED:
+            messages.error(request, "Ваши треки уже находятся в процессе обновления.")
+            return super().post(request, *args, **kwargs)
+
+        refresh = Refresh.objects.create(user_id=user_id, service=service, type=RefreshType.MANUAL)
+        load_user_tracks.apply_async(args=[token.value, user_id, refresh.id])
+        messages.info(
+            request, "Обновление началось. " "Ваши треки обновятся в течение нескольких минут."
+        )
+        return super().post(request, *args, **kwargs)

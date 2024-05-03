@@ -429,6 +429,17 @@ files = [
 ]
 
 [[package]]
+name = "coloreflection"
+version = "0.1.0"
+description = "Module for using colors for the terminal, based on reflection"
+optional = false
+python-versions = ">=3.0,<4.0"
+files = [
+    {file = "coloreflection-0.1.0-py3-none-any.whl", hash = "sha256:6c78a7e0204618069ccd12825bf7c4d9343cfc8e51a4b4e9509b6759d9a2db1a"},
+    {file = "coloreflection-0.1.0.tar.gz", hash = "sha256:eef1ef13c7d45798f3acd6c2e4907c33c21594f94df9a7851f16767c0a673e74"},
+]
+
+[[package]]
 name = "cssbeautifier"
 version = "1.15.1"
 description = "CSS unobfuscator and beautifier."
@@ -1647,4 +1658,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "eea3aecaca45cd17a1555befc41c4b9b7c74359899fb7b82b62924d4a5f4f34b"
+content-hash = "e626554397742ce894287b201ba5b224688eb4cdc13cdf265e444ea88ee12f72"

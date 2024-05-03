@@ -27,6 +27,7 @@ scikit-learn = "^1.4.2"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.1"
 pre-commit = "^3.6.2"
+coloreflection = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core"]

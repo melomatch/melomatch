@@ -22,7 +22,7 @@
             </div>
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
-              <div class="field is-grouped is-grouped-centered mt-6">
+              <div class="field is-grouped is-grouped-centered">
                 <div class="control">
                   <button class="button is-danger is-light my-3" type="submit">
                     Выйти из аккаунта
@@ -30,6 +30,19 @@
                 </div>
               </div>
             </form>
+            <form method="post" action="{% url 'refresh-tracks' %}">
+              {% csrf_token %}
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button is-link is-light my-3
+                                 {% if refresh.status == 'in_process' %}is-loading{% endif %}"
+                          type="submit">Обновить треки</button>
+                </div>
+              </div>
+            </form>
+            <div class="has-text-centered">
+              Последнее обновление <span class="has-text-weight-bold">{{ refresh.updated_at|date:"H:i:s d.m.Y"|default:"никогда" }}</span>
+            </div>
           </div>
           <div class="column is-two-quarters-desktop mx-5">
             {% include "web/includes/base_form.html" %}

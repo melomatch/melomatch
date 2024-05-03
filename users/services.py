@@ -5,7 +5,6 @@ import requests
 from ua_parser.user_agent_parser import ParseUserAgent
 
 from users.enums import Sex
-from users.models import User
 from web.mappings import browsers_tampermonkey_links
 
 
@@ -43,16 +42,6 @@ def prepare_yandex_user_data(data):
     modified_data["sex"] = Sex(sex[:1].upper())
 
     return modified_data
-
-
-def get_user_by_yandex_data(data):
-    try:
-        user = User.objects.get(yandex_id=data["yandex_id"])
-    except User.DoesNotExist:
-        user = User(**data)
-
-    user.save()
-    return user
 
 
 def get_tampermonkey_link_by_user_agent(user_agent):

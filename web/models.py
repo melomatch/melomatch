@@ -2,12 +2,12 @@ from django.db import models
 
 
 class Track(models.Model):
-    yandex_id = models.BigIntegerField(unique=True, verbose_name="ID в Yandex")
-    title = models.CharField(max_length=255, verbose_name="Название")
-    release_date = models.DateTimeField(verbose_name="Дата выхода")
-    cover = models.URLField(max_length=511, verbose_name="URL обложки")
-    genres = models.ManyToManyField("Genre", verbose_name="Жанры")
-    artists = models.ManyToManyField("Artist", verbose_name="Артисты")
+    yandex_id = models.BigIntegerField(unique=True, verbose_name="идентификатор в Яндексе")
+    title = models.CharField(max_length=255, verbose_name="название")
+    release_date = models.DateTimeField(verbose_name="дата выхода")
+    cover = models.URLField(max_length=511, verbose_name="обложка")
+    genre = models.ForeignKey("Genre", on_delete=models.SET_NULL, null=True, verbose_name="жанр")
+    artists = models.ManyToManyField("Artist", verbose_name="артисты")
 
     class Meta:
         verbose_name = "трек"
@@ -19,7 +19,7 @@ class Track(models.Model):
 
 
 class Genre(models.Model):
-    title = models.CharField(unique=True, max_length=63, verbose_name="Жанр")
+    title = models.CharField(unique=True, max_length=63, verbose_name="название")
 
     class Meta:
         verbose_name = "жанр"
@@ -30,9 +30,9 @@ class Genre(models.Model):
 
 
 class Artist(models.Model):
-    yandex_id = models.BigIntegerField(unique=True, verbose_name="ID в Yandex")
-    name = models.CharField(max_length=255, verbose_name="Имя")
-    avatar = models.URLField(max_length=511, verbose_name="URL фотографии профиля")
+    yandex_id = models.BigIntegerField(unique=True, verbose_name="идентификатор в Яндексе")
+    name = models.CharField(max_length=255, verbose_name="имя")
+    avatar = models.URLField(max_length=511, verbose_name="фотография")
 
     class Meta:
         verbose_name = "артист"
