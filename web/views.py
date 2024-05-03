@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -49,7 +50,7 @@ class InstructionView(TemplateView):
         return context
 
 
-class TopListView(TabsMixin, TemplateView):
+class TopListView(TabsMixin, LoginRequiredMixin, TemplateView):
     template_name = "web/pages/my_top.html"
 
     def get_context_data(self, **kwargs):
@@ -161,7 +162,7 @@ class RequestView(TemplateView):
         return context
 
 
-class CompareTasteView(CompareTastePermission, TemplateView):
+class CompareTasteView(LoginRequiredMixin, CompareTastePermission, TemplateView):
     template_name = "web/pages/compare_taste.html"
 
     def get_context_data(self, **kwargs):
@@ -173,7 +174,7 @@ class CompareTasteView(CompareTastePermission, TemplateView):
         return context
 
 
-class CompareTasteApiView(CompareTastePermission, View):
+class CompareTasteApiView(LoginRequiredMixin, CompareTastePermission, View):
     def get(self, request, *args, **kwargs):
         user_to_compare = get_object_or_404(User, username=self.kwargs.get("username"))
 

@@ -3,5 +3,5 @@
        height="256"
        width="256"
        alt="Аватарка пользователя {{ username }}"
-       src="{{ avatar }}/islands-200" />
+       {% if avatar %}src="{{ avatar }}/islands-200"{% endif %} />
 </figure>
