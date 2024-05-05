@@ -35,6 +35,7 @@
 {% block scripts %}
   <script>
     const compared_to_username = "{{ user_to_compare.username }}";
+    const by_query = "{{ request.GET.by }}";
   </script>
   <script src="{% static 'web/js/compare_taste.js' %}?"></script>
 {% endblock scripts %}

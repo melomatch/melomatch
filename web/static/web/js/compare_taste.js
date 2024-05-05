@@ -14,6 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".loader").classList.add("is-hidden");
     }
   };
-  xhr.open("GET", `/api/compare/${compared_to_username}`, true);
+  xhr.open("GET", `/api/compare/${compared_to_username}?by=${by_query}`, true);
   xhr.send();
 });
