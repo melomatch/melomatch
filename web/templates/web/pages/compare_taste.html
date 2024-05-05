@@ -20,10 +20,10 @@
         <div class="mb-5">
           <div class="columns is-centered">
             <div class="column is-narrow">
-              {% include "web/includes/avatar_256x256.html" with avatar=user_to_compare.avatar username=user_to_compare.username %}
+              {% include "web/includes/avatar_circle.html" with avatar=user_to_compare.avatar username=user_to_compare.username size=256 %}
             </div>
             <div class="column is-narrow">
-              {% include "web/includes/avatar_256x256.html" with avatar=user.avatar username=user.username %}
+              {% include "web/includes/avatar_circle.html" with avatar=user.avatar username=user.username size=256 %}
             </div>
           </div>
         </div>
