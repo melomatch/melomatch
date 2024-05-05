@@ -159,5 +159,4 @@ class SearchUserView(TabsMixin, LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=None, **kwargs)
-        context["tabs"]["search"]["active"] = True
         return context | {"query_params": dict(self.request.GET)}

@@ -5,7 +5,6 @@
 {% endblock title %}
 
 {% block body %}
-  {% include "web/includes/tab.html" %}
   <div class="columns is-centered my-4">
     <div class="column is-half">
       <form action="{% url 'search-user' %}" method="get">
@@ -13,7 +12,7 @@
           <div class="control is-expanded">
             <input type="search"
                    name="q"
-                   placeholder="Найти пользователя.."
+                   placeholder="Поиск.."
                    class="input"
                    value="{{ query_params.q.0 }}" />
           </div>
