@@ -2,15 +2,13 @@ import numpy as np
 from django.db.models.query import QuerySet
 from sklearn.metrics.pairwise import cosine_similarity
 
-from users.models import User
 
-
-class CompareTastesModel:
+class CompareTasteModel:
     all_tracks: list = []
 
-    def __init__(self, comparer_id, compared_to_id):
-        self.comparer_id = comparer_id
-        self.compared_to_id = compared_to_id
+    def __init__(self, comparer, compared_to):
+        self.comparer = comparer
+        self.compared_to = compared_to
 
     def _tracks_to_vector(self, tracks: QuerySet) -> np.array:
         vector = np.zeros(len(self.all_tracks))
@@ -25,8 +23,8 @@ class CompareTastesModel:
         return self._tracks_to_vector(comparer_tracks), self._tracks_to_vector(compared_to_tracks)
 
     def _get_users_tracks(self) -> tuple[QuerySet, QuerySet]:
-        comparer_tracks = User.objects.get(id=self.comparer_id).tracks.all()
-        compared_to_tracks = User.objects.get(id=self.compared_to_id).tracks.all()
+        comparer_tracks = self.comparer.tracks.all()
+        compared_to_tracks = self.compared_to.tracks.all()
         self.all_tracks = list(set(list(comparer_tracks) + list(compared_to_tracks)))
         return comparer_tracks, compared_to_tracks
 

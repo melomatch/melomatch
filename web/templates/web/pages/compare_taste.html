@@ -1,16 +1,12 @@
 {% extends "web/pages/base.html" %}
+{% load static %}
 
 {% block title %}
   Сравнение вкуса с {{ user_to_compare.username }} - Melomatch
 {% endblock title %}
 
 {% block styles %}
-  <style>
-    .loader.is-big {
-      width: 32px;
-      height: 32px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'web/css/compare_taste.css' %}?">
 {% endblock styles %}
 
 {% block body %}
@@ -35,3 +31,11 @@
     </div>
   </section>
 {% endblock body %}
+
+{% block scripts %}
+  <script>
+    const compared_to_username = "{{ user_to_compare.username }}";
+    const by_query = "{{ request.GET.by }}";
+  </script>
+  <script src="{% static 'web/js/compare_taste.js' %}?"></script>
+{% endblock scripts %}

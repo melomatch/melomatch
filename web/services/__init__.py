@@ -1,4 +1,4 @@
-from .compare_tastes import CompareTastesModel
+from .compare_taste import CompareTasteModel
 from .model_instances_machinations import (
     get_saved_instances_by_unsaved_and_unique_saved,
     get_unique_model_instances,
@@ -11,5 +11,5 @@ __all__ = [
     "prepare_track",
     "prepare_artist",
     "prepare_tracks_genres_artists_lists",
-    "CompareTastesModel",
+    "CompareTasteModel",
 ]

@@ -41,7 +41,7 @@
         {% else %}
           {% if request.user.is_authenticated %}
             <a class="button is-link"
-               href="{% url 'compare_taste' request_owner.username %}?by=link">Сравнить вкус</a>
+               href="{% url 'compare-taste' request_owner.username %}?by=link">Сравнить вкус</a>
           {% else %}
             {% include "web/includes/yandex_button.html" with additional_classes=" is-medium" %}
           {% endif %}

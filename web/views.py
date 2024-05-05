@@ -1,13 +1,16 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.templatetags.static import static
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 
 from users.models import User
 from users.services import get_tampermonkey_link_by_user_agent
 from web.models import Track
 from web.permissions import CompareTastePermission
+from web.services import CompareTasteModel
 
 
 class TabsMixin:
@@ -23,7 +26,7 @@ class TabsMixin:
             "my_top": {
                 "title": "Мой топ",
                 "icon_class": "fas fa-medal",
-                "url": reverse("my_top"),
+                "url": reverse("my-top"),
                 "active": False,
             },
             "privacy": {
@@ -47,7 +50,7 @@ class InstructionView(TemplateView):
         return context
 
 
-class TopListView(TabsMixin, TemplateView):
+class TopListView(TabsMixin, LoginRequiredMixin, TemplateView):
     template_name = "web/pages/my_top.html"
 
     def get_context_data(self, **kwargs):
@@ -159,7 +162,7 @@ class RequestView(TemplateView):
         return context
 
 
-class CompareTasteView(CompareTastePermission, TemplateView):
+class CompareTasteView(LoginRequiredMixin, CompareTastePermission, TemplateView):
     template_name = "web/pages/compare_taste.html"
 
     def get_context_data(self, **kwargs):
@@ -169,3 +172,11 @@ class CompareTasteView(CompareTastePermission, TemplateView):
         context["user_to_compare"] = request_owner
 
         return context
+
+
+class CompareTasteApiView(LoginRequiredMixin, CompareTastePermission, View):
+    def get(self, request, *args, **kwargs):
+        user_to_compare = get_object_or_404(User, username=self.kwargs.get("username"))
+
+        model = CompareTasteModel(self.request.user, user_to_compare)
+        return JsonResponse({"result": model.evaluate()})

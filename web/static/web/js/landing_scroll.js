@@ -1,5 +1,8 @@
-$(document).ready(function() {
-  $("#scroll").click(function() {
-    $("html").animate({ scrollTop: window.innerHeight }, "slow");
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#scroll").on("click", () => {
+    window.scroll({
+      top: window.innerHeight,
+      behavior: "smooth",
+    });
   });
 });
