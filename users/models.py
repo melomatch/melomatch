@@ -25,6 +25,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    class Meta:
+        ordering = ["-last_login"]
+
 
 class Token(models.Model):
     value = models.CharField(max_length=255, verbose_name="токен")

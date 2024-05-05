@@ -5,9 +5,10 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import RedirectView, UpdateView
+from django.views.generic import ListView, RedirectView, UpdateView
 
 from users.enums import RefreshStatus, RefreshType, Service
 from users.forms import PrivacyForm, ProfileForm
@@ -137,3 +138,25 @@ class RefreshTracksView(LoginRequiredMixin, RedirectView):
             request, "Обновление началось. " "Ваши треки обновятся в течение нескольких минут."
         )
         return super().post(request, *args, **kwargs)
+
+
+class SearchUserView(TabsMixin, LoginRequiredMixin, ListView):
+    model = User
+    template_name = "users/search.html"
+    context_object_name = "users"
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = self.model.objects.filter(~Q(id=self.request.user.id), is_private=False)
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(
+                Q(username__icontains=query)
+                | Q(first_name__icontains=query)
+                | Q(last_name__icontains=query)
+            )
+        return queryset
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        return context | {"query_params": dict(self.request.GET)}
