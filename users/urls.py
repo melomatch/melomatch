@@ -15,5 +15,5 @@ urlpatterns = [
     path("profile", ProfileView.as_view(), name="profile"),
     path("privacy", PrivacyView.as_view(), name="privacy"),
     path("refresh_tracks", RefreshTracksView.as_view(), name="refresh-tracks"),
-    path("users/search", SearchUserView.as_view(), name="search_user"),
+    path("users/search", SearchUserView.as_view(), name="search-user"),
 ]

@@ -33,7 +33,7 @@
           {% endif %}
         </div>
         {% if request_owner == request.user %}
-          <a class="button is-link" href="{% url 'search_user' %}">Найти пользователя</a>
+          <a class="button is-link" href="{% url 'search-user' %}">Найти пользователя</a>
         {% elif not request_owner.is_active_link %}
           <div class="text-container">
             На данный момент вы не можете сравнить с ним свой музыкальный вкус.
