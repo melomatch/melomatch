@@ -26,7 +26,7 @@ class TabsMixin:
             "my_top": {
                 "title": "Мой топ",
                 "icon_class": "fas fa-medal",
-                "url": reverse("my_top"),
+                "url": reverse("my-top"),
                 "active": False,
             },
             "privacy": {
