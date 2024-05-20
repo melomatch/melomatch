@@ -7,10 +7,15 @@ from web.models import Artist, Genre, Track
 
 
 def prepare_artist(artist: YandexArtist) -> Artist:
+    # Аватар может быть null, например у "Llord" (на момент 21.05.2024)
+    avatar = getattr(
+        artist.cover, "uri", "storage.yandexcloud.net/melomatch/default-artist-cover/%%"
+    )
+
     return Artist(
         yandex_id=artist.id,
         name=artist.name,
-        avatar=f"https://{artist.cover.uri[:-3]}",
+        avatar=f"https://{avatar[:-3]}",
     )
 
 
