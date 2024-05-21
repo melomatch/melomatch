@@ -15,8 +15,9 @@
 7. Добавить жанры в БД  
 `python manage.py addmusicgenres`
 8. Запустить celery  
-`celery -A melomatch worker -l info`
-7. Запустить веб-сервер  
+`celery -A melomatch worker -l info`  
+   (на Windows `celery -A melomatch worker -l info -P gevent`)
+9. Запустить веб-сервер  
 `python manage.py runserver`
 
 ---

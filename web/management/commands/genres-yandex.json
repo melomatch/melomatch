@@ -371,6 +371,12 @@
       "title": "Даб",
       "color": "#fd9060",
       "cover": "avatars.yandex.net/get-music-misc/34161/rotor-genre-reggaeton-icon/%%"
+    },
+    {
+      "id": "other",
+      "title": "Другое",
+      "color": "#777777",
+      "cover": "storage.yandexcloud.net/melomatch/rotor-genre-other-icon/%%"
     }
   ]
 }

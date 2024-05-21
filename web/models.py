@@ -4,9 +4,11 @@ from django.db import models
 class Track(models.Model):
     yandex_id = models.BigIntegerField(unique=True, verbose_name="идентификатор в Яндексе")
     title = models.CharField(max_length=255, verbose_name="название")
-    release_date = models.DateTimeField(verbose_name="дата выхода")
+    release_date = models.DateTimeField(blank=True, null=True, verbose_name="дата выхода")
     cover = models.URLField(max_length=511, verbose_name="обложка")
-    genre = models.ForeignKey("Genre", on_delete=models.SET_NULL, null=True, verbose_name="жанр")
+    genre = models.ForeignKey(
+        "Genre", on_delete=models.SET_NULL, blank=True, null=True, verbose_name="жанр"
+    )
     artists = models.ManyToManyField("Artist", verbose_name="артисты")
 
     class Meta:

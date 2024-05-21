@@ -36,6 +36,8 @@ def load_user_tracks(token: str, user_id: int, refresh_id: int) -> None:
     for track, genre in zip(tracks, saved_genres, strict=False):
         track.genre = genre
 
+    # WARNING: До того, как треки сохранены в БД, их нельзя принтить в коде, иначе это
+    # повлечёт ошибку RecursionError (https://code.djangoproject.com/ticket/26768)
     saved_tracks = Track.objects.bulk_create(
         tracks,
         update_conflicts=True,
